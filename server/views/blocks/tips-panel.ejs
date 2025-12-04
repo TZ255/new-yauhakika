@@ -9,7 +9,7 @@
       <% days.forEach(({key, label}) => { %>
         <li class="nav-item" role="presentation">
           <button
-            class="nav-link <%= key === 'leo' ? 'active' : '' %>"
+            class="nav-link text-dark <%= key === 'leo' ? 'active' : '' %>"
             id="tab-<%= category %>-<%= key %>-tab"
             data-bs-toggle="pill"
             data-bs-target="#tab-<%= category %>-<%= key %>"

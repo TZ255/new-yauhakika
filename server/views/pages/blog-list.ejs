@@ -3,7 +3,11 @@
     <div class="section-header">
       <div>
         <h1 class="section-title display-6 fw-bold mb-2">Makala</h1>
-        <p class="section-subtitle mb-0">Makala za betting Tanzania</p>
+        <p class="section-subtitle mb-0">Makala za betting Tanzania na uchambuzi wa soka</p>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="badge text-bg-accent">Tips &amp; Guides</span>
+        <span class="badge text-bg-secondary">AFCON &amp; World Cup</span>
       </div>
     </div>
   </section>
@@ -12,28 +16,33 @@
     <% if (!posts || posts.length === 0) { %>
       <div class="alert alert-warning mb-0">Hakuna makala kwa sasa. Rudi baadae.</div>
     <% } else { %>
-      <div class="section-grid columns-2 mb-4">
+      <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
         <% posts.forEach((post) => { %>
-          <a class="card blog-card h-100 text-decoration-none" href="/blog/<%= post.slug %>">
-            <% if (post.heroImage) { %>
-              <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
-            <% } %>
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex w-100 justify-content-between align-items-start">
-                <h2 class="h6 mb-1 text-white"><%= post.title %></h2>
-                <small class="text-muted"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></small>
-              </div>
-              <p class="mb-2 text-muted flex-grow-1"><%= post.description %></p>
-              <% if (post.tags && post.tags.length) { %>
-                <div class="d-flex gap-2 flex-wrap mb-2">
-                  <% post.tags.forEach((tag) => { %>
-                    <span class="pill pill-muted">#<%= tag %></span>
-                  <% }) %>
-                </div>
+          <div class="col">
+            <a class="card blog-card h-100 text-decoration-none" href="/blog/<%= post.slug %>">
+              <% if (post.heroImage) { %>
+                <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
               <% } %>
-              <span class="btn btn-outline-accent mt-auto align-self-start">Soma zaidi</span>
-            </div>
-          </a>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex w-100 justify-content-between align-items-start mb-1">
+                  <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <% if (post.badge) { %><span class="badge text-bg-accent"><%= post.badge %></span><% } %>
+                    <small class="text-muted"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></small>
+                  </div>
+                </div>
+                <h2 class="h6 mb-2 fw-bold text-dark"><%= post.title %></h2>
+                <p class="mb-2 text-muted flex-grow-1"><%= post.description %></p>
+                <% if (post.tags && post.tags.length) { %>
+                  <div class="d-flex gap-2 flex-wrap mb-2">
+                    <% post.tags.forEach((tag) => { %>
+                      <span class="pill pill-muted">#<%= tag %></span>
+                    <% }) %>
+                  </div>
+                <% } %>
+                <span class="btn btn-outline-accent mt-auto align-self-start">Soma zaidi</span>
+              </div>
+            </a>
+          </div>
         <% }) %>
       </div>
     <% } %>

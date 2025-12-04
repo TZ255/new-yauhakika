@@ -8,7 +8,7 @@ export async function renderRss(req, res) {
       (post) => `
       <item>
         <title><![CDATA[${post.title}]]></title>
-        <link>${SITE.url}/blog/${post.slug}</link>
+        <link>${SITE.url}/blog/${post.slug}/</link>
         <guid>${SITE.url}/blog/${post.slug}</guid>
         <description><![CDATA[${post.description}]]></description>
         <pubDate>${new Date(post.pubDate).toUTCString()}</pubDate>
@@ -35,7 +35,7 @@ export async function renderSitemap(req, res) {
 
   const urls = [
     ...STATIC_PAGES,
-    ...posts.map((p) => `/blog/${p.slug}`),
+    ...posts.map((p) => `/blog/${p.slug}/`),
   ];
 
   const body = urls

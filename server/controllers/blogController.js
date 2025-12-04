@@ -18,7 +18,7 @@ export async function listBlog(req, res) {
     meta: pageMeta({
       title: 'Makala Zetu',
       description: 'Makala za betting Tanzania',
-      path: page > 1 ? `/blog/page/${page}` : '/blog',
+      path: page > 1 ? `/blog/page/${page}/` : '/blog/',
     }),
     posts: pagePosts,
     pagination: {
@@ -42,9 +42,10 @@ export async function showBlog(req, res, next) {
     meta: pageMeta({
       title: post.title,
       description: post.description,
-      path: `/blog/${slug}`,
+      path: `/blog/${slug}/`,
       image: post.heroImage,
     }),
+    extraStyles: '/css/blog-post.css',
     post,
     content: html,
   });

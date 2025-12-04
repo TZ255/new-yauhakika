@@ -9,27 +9,25 @@ export const SITE = {
 
 export const NAV_ITEMS = [
   { id: 'home', label: 'Home - Acca Tips', href: '/' },
-  { id: 'over15', label: 'Over 1.5 Tips', href: '/over-15' },
-  { id: 'btts', label: 'Both Teams to Score', href: '/both-teams-to-score' },
+  { id: 'over15', label: 'Over 1.5 Tips', href: '/over-15/' },
+  { id: 'btts', label: 'Both Teams to Score', href: '/both-teams-to-score/' },
   {
     id: 'ht15',
     label: 'Under/Over 1.5 Halftime',
-    href: '/under-over-15-first-half',
+    href: '/under-over-15-first-half/',
   },
-  { id: 'blog', label: 'Makala', href: '/blog' },
-  { id: 'about', label: 'Kuhusu Sisi', href: '/about' },
-  { id: 'services', label: 'Huduma', href: '/services' },
-  { id: 'projects', label: 'Miradi', href: '/projects' },
+  { id: 'blog', label: 'Makala', href: '/blog/' },
+  { id: 'about', label: 'Kuhusu Sisi', href: '/about/' },
   { id: 'contact', label: 'Wasiliana Nasi', href: 'mailto:support@mikekayauhakika.com' },
 ];
 
 export const STATIC_PAGES = [
   '/',
-  '/over-15',
-  '/both-teams-to-score',
-  '/under-over-15-first-half',
-  '/about',
-  '/services',
-  '/projects',
-  '/blog',
+  '/over-15/',
+  '/both-teams-to-score/',
+  '/under-over-15-first-half/',
+  '/about/',
+  '/services/',
+  '/projects/',
+  '/blog/',
 ];

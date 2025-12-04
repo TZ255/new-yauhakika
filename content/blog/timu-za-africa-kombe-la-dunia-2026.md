@@ -15,7 +15,7 @@ badge: "WC26"
 ## Utangulizi
 Shirikisho la Soka Barani Afrika (CAF) limeanza mchakato mkali wa mechi za kufuzu Kombe la Dunia 2026. Michuano hii ni muhimu sana kwani Afrika (CAF) itapata idadi kubwa zaidi ya nafasi za kufuzu, timu tisa zinaweza kufuzu moja kwa moja, huku nafasi ya kumi ikipatikana kupitia mchezo wa mchujo wa kimataifa (inter-confederation playoff). Hata hivyo, Eritrea ilijitoa mapema, hivyo katika duru ya kwanza zitashiriki jumla ya mataifa 53.
 
-Tanzania, maarufu kama Taifa Stars, imo kwenye Kundi E za mechi za kufuzu kombe la dunia. Pia ipo kundi C katika [Droo ya AFCON 2025](/makundi-ya-afcon-2025-morocco) na inajaribu kuweka historia mpya kwa kufuzu Kombe la Dunia kwa mara ya kwanza. Michuano hii inatarajiwa kuwa ya ushindani mkubwa, ikizingatiwa uwepo wa wachezaji nyota wanaocheza kwenye ligi kubwa barani Ulaya, ikiwemo Ligi Kuu ya Uingereza (EPL).
+Tanzania, maarufu kama Taifa Stars, imo kwenye Kundi E za mechi za kufuzu kombe la dunia. Pia ipo kundi C katika [Droo ya AFCON 2025](/blog/makundi-ya-afcon-2025-morocco) na inajaribu kuweka historia mpya kwa kufuzu Kombe la Dunia kwa mara ya kwanza. Michuano hii inatarajiwa kuwa ya ushindani mkubwa, ikizingatiwa uwepo wa wachezaji nyota wanaocheza kwenye ligi kubwa barani Ulaya, ikiwemo Ligi Kuu ya Uingereza (EPL).
 
 ---
 

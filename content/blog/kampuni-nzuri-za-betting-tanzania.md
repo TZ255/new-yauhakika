@@ -48,7 +48,7 @@ Betway ni moja kati ya kampuni kubwa za kimataifa zinazotoa huduma za kubeti mta
 - Inatumia teknolojia ya SSL kulinda taarifa za wachezaji.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('betway')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('betway')">
 Jisajili Betway
 </button>
 </div>
@@ -85,7 +85,7 @@ Gal Sport Betting, maarufu kama GSB, ni miongoni mwa kampuni kongwe za kubeti nc
 - Ina mifumo ya kisasa ya usalama, ikiwemo ukaguzi wa namba za simu na uthibitisho wa vitambulisho.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('gsb')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('gsb')">
 Jisajili Gal Sport Betting
 </button>
 </div>
@@ -122,7 +122,7 @@ Leonbet ni pendwa kwa wachezaji wanaotafuta “ofa za kubeti” na masoko mengi 
 - Teknolojia ya kisasa ya usimbaji (encryption) inatumika kulinda taarifa za kifedha.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('leonbet')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('leonbet')">
 Jisajili Leonbet
 </button>
 </div>
@@ -160,7 +160,7 @@ Parimatch ni kampuni kubwa ya kimataifa inayojulikana kwa ubunifu katika sekta y
 - Inazingatia kanuni za kubeti kwa uwajibikaji, ikiwemo kutolea taarifa kamili juu ya hatari za kucheza kupita kiasi.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('pmatch')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('pmatch')">
 Jisajili Parimatch
 </button>
 </div>
@@ -197,7 +197,7 @@ Jisajili Parimatch
 - Ina sera madhubuti za kujilinda na udanganyifu pamoja na uchezaji unaozidi mipaka (responsible gambling).
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('888bet')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('888bet')">
 Jisajili 888Bet
 </button>
 </div>
@@ -235,7 +235,7 @@ Betwinner ni jukwaa lingine la kimataifa lililopata umaarufu hapa Tanzania. Ni c
 - Uthibitisho wa akaunti unahitajika ili kuepusha udanganyifu.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('betwinner')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('betwinner')">
 Jisajili BetWineer
 </button>
 </div>
@@ -273,7 +273,7 @@ Meridianbet ni kampuni inayotambulika kimataifa, lakini imejikita sana katika so
 - Inafuata viwango vya kimataifa vya kubashiri kwa uwajibikaji.
 
 <div class="my-8 mx-auto text-center">
-<button class="btn rounded p-3 bg-secondary text-base-200 lg:w-1/2 w-[90%] hover:bg-base-200 hover:text-secondary font-bold" onclick="OpenAff('meridian')">
+<button class="btn rounded p-3 bg-success text-light" onclick="OpenAff('meridian')">
 Jisajili Meridianbet
 </button>
 </div>

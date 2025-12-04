@@ -1,29 +1,39 @@
+<% const readMinutes = Math.max(2, Math.ceil(((post.body || '').split(/\s+/) || []).length / 200)); %>
 <div class="section-stack">
-  <section class="section-card">
-    <div class="section-header">
-      <div>
-        <p class="section-subtitle text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></p>
-        <h1 class="section-title display-6 fw-bold mb-2"><%= post.title %></h1>
-        <p class="section-subtitle text-muted mb-0"><%= post.description %></p>
-      </div>
-      <% if (post.badge) { %>
-        <span class="badge text-bg-accent align-self-start"><%= post.badge %></span>
+  <section class="blog-article section-card">
+    <div class="blog-container">
+      <header class="blog-hero">
+        <div class="blog-hero__meta">
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <% if (post.badge) { %><span class="badge text-bg-accent"><%= post.badge %></span><% } %>
+            <span class="pill pill-muted small-pill"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></span>
+            <span class="pill pill-muted small-pill"><%= readMinutes %> min read</span>
+          </div>
+          <div>
+            <h1 class="blog-hero__title"><%= post.title %></h1>
+            <p class="blog-hero__subtitle"><%= post.description %></p>
+          </div>
+        </div>
+        <% if (post.heroImage) { %>
+          <div class="blog-hero__image shadow-sm">
+            <img src="<%= post.heroImage %>" alt="<%= post.title %>" loading="lazy" />
+          </div>
+        <% } %>
+      </header>
+
+      <% if (post.tags && post.tags.length) { %>
+        <div class="blog-tags">
+          <% post.tags.forEach((tag) => { %>
+            <span class="pill pill-muted small-pill">#<%= tag %></span>
+          <% }) %>
+        </div>
       <% } %>
     </div>
-    <% if (post.tags && post.tags.length) { %>
-      <div class="d-flex gap-2 flex-wrap mb-3">
-        <% post.tags.forEach((tag) => { %>
-          <span class="pill pill-muted">#<%= tag %></span>
-        <% }) %>
-      </div>
-    <% } %>
 
-    <% if (post.heroImage) { %>
-      <img src="<%= post.heroImage %>" alt="<%= post.title %>" class="img-fluid rounded shadow-sm mb-4" />
-    <% } %>
-
-    <article class="prose">
-      <%- content %>
-    </article>
+    <div class="blog-container">
+      <article class="blog-prose">
+        <%- content %>
+      </article>
+    </div>
   </section>
 </div>
