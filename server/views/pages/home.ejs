@@ -26,28 +26,28 @@
       </div>
     </div>
     <div class="section-grid columns-3">
-      <div class="card h-100 blog-card">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/over-15/';" style="cursor: pointer;">
         <img src="/mikeka/over15.webp" class="card-img-top" alt="Over 1.5" />
         <div class="card-body d-flex flex-column">
           <h3 class="h5 text-dark">Mikeka ya Over 1.5</h3>
           <p class="text-muted flex-grow-1">Utabiri wa mpira wa miguu Over 1.5 - nafasi kubwa za kufunga mabao zaidi ya moja.</p>
-          <a href="/over-15" class="btn btn-outline-accent mt-auto">Angalia mikeka</a>
+          <a href="/over-15/" class="btn btn-outline-accent mt-auto">Angalia mikeka</a>
         </div>
       </div>
-      <div class="card h-100 blog-card">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/under-over-15-first-half/';" style="cursor: pointer;">
         <img src="/mikeka/ht15.webp" class="card-img-top" alt="HT 1.5" />
         <div class="card-body d-flex flex-column">
           <h3 class="h5 text-dark">Under/Over First Half</h3>
           <p class="text-muted flex-grow-1">Utabiri wa magoli kipindi cha kwanza. Chukua chaguo la haraka na salama.</p>
-          <a href="/under-over-15-first-half" class="btn btn-outline-accent mt-auto">Fungua</a>
+          <a href="/under-over-15-first-half/" class="btn btn-outline-accent mt-auto">Fungua</a>
         </div>
       </div>
-      <div class="card h-100 blog-card">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/both-teams-to-score/';" style="cursor: pointer;">
         <img src="/mikeka/btts.webp" class="card-img-top" alt="BTTS" />
         <div class="card-body d-flex flex-column">
           <h3 class="h5 text-dark">Both Teams to Score</h3>
           <p class="text-muted flex-grow-1">Mikeka ya GG/NG kwa kila siku, jumamosi na jumapili.</p>
-          <a href="/both-teams-to-score" class="btn btn-outline-accent mt-auto">Tazama BTTS</a>
+          <a href="/both-teams-to-score/" class="btn btn-outline-accent mt-auto">Tazama BTTS</a>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
               <div class="small text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></div>
               <h3 class="h6 fw-bold text-dark"><%= post.title %></h3>
               <p class="text-muted flex-grow-1"><%= post.description %></p>
-              <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>">Soma zaidi</a>
+              <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>/">Soma zaidi</a>
             </div>
           </div>
         <% }) %>
