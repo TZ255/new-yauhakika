@@ -1,0 +1,83 @@
+<div class="section-stack">
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <p class="section-subtitle text-uppercase small mb-1">Vidokezo vya mpira kila siku</p>
+        <h1 class="section-title display-6 fw-bold mb-2">Mikeka ya Uhakika</h1>
+      </div>
+    </div>
+    <p class="lead">
+      Karibu Mikeka ya Uhakika, tovuti yako bora kwa vidokezo vya kubeti, utabiri wa mpira wa miguu, na takwimu za kina kwa ligi na michuano mbalimbali. Tunazingatia matokeo ya timu kwenye mechi za hivi karibuni ili kukupa mwongozo bora wa kuchagua mikeka yenye nafasi kubwa ya ushindi.
+    </p>
+    <p class="mb-0">
+      Data zetu za kila siku zinajumuisha: Ushindi wa Mechi (1X2), Zaidi/Chini ya magoli (Over/Under), Magoli Kipindi cha Kwanza (Halftime Goals), na Timu Zote Kufungana (BTTS).
+    </p>
+  </section>
+
+  <section>
+    <%- include('../blocks/tips-panel', { heading: 'Utabiri wa Leo', subheading: 'Chagua siku kutazama mikeka yote ya accumulator', category: 'mega', tips }) %>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title h5 mb-1">Mikeka Mingine Ya Bure</h2>
+        <p class="section-subtitle mb-0">Ongeza mkeka wako kwa makundi mengine</p>
+      </div>
+    </div>
+    <div class="section-grid columns-3">
+      <div class="card h-100 blog-card">
+        <img src="/mikeka/over15.webp" class="card-img-top" alt="Over 1.5" />
+        <div class="card-body d-flex flex-column">
+          <h3 class="h5 text-white">Mikeka ya Over 1.5</h3>
+          <p class="text-muted flex-grow-1">Utabiri wa mpira wa miguu Over 1.5 - nafasi kubwa za kufunga mabao zaidi ya moja.</p>
+          <a href="/over-15" class="btn btn-outline-accent mt-auto">Angalia mikeka</a>
+        </div>
+      </div>
+      <div class="card h-100 blog-card">
+        <img src="/mikeka/ht15.webp" class="card-img-top" alt="HT 1.5" />
+        <div class="card-body d-flex flex-column">
+          <h3 class="h5 text-white">Under/Over First Half</h3>
+          <p class="text-muted flex-grow-1">Utabiri wa magoli kipindi cha kwanza. Chukua chaguo la haraka na salama.</p>
+          <a href="/under-over-15-first-half" class="btn btn-outline-accent mt-auto">Fungua</a>
+        </div>
+      </div>
+      <div class="card h-100 blog-card">
+        <img src="/mikeka/btts.webp" class="card-img-top" alt="BTTS" />
+        <div class="card-body d-flex flex-column">
+          <h3 class="h5 text-white">Both Teams to Score</h3>
+          <p class="text-muted flex-grow-1">Mikeka ya GG/NG kwa kila siku, jumamosi na jumapili.</p>
+          <a href="/both-teams-to-score" class="btn btn-outline-accent mt-auto">Tazama BTTS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title h5 mb-1">Makala Zilizoongezwa Hivi Karibuni</h2>
+        <p class="section-subtitle mb-0">Soma uchambuzi wetu wa kubeti</p>
+      </div>
+    </div>
+    <% if (!latestPosts || latestPosts.length === 0) { %>
+      <div class="alert alert-info mb-0">Hakuna makala kwa sasa.</div>
+    <% } else { %>
+      <div class="section-grid columns-3">
+        <% latestPosts.forEach((post) => { %>
+          <div class="card h-100 blog-card">
+            <% if (post.heroImage) { %>
+            <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
+            <% } %>
+            <div class="card-body d-flex flex-column">
+              <div class="small text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></div>
+              <h3 class="h6 fw-bold text-white"><%= post.title %></h3>
+              <p class="text-muted flex-grow-1"><%= post.description %></p>
+              <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>">Soma zaidi</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</div>

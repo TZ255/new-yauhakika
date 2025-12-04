@@ -1,0 +1,21 @@
+<% if (!tips || tips.length === 0) { %>
+  <div class="tip-row empty">Hakuna mikeka kwa siku hii. Tafadhali rudi baadae.</div>
+<% } %>
+<% (tips || []).forEach((tip) => { %>
+  <div class="tip-row">
+    <div class="tip-cell time">
+      <div class="fw-semibold"><%= tip.kickoff || 'TBD' %></div>
+      <div class="small text-muted"><%= tip.dateLabel || '' %></div>
+    </div>
+    <div class="tip-cell match">
+      <div class="league-chip"><%= tip.league || 'League TBD' %></div>
+      <div class="fw-semibold fs-6 mt-1"><%= tip.match %></div>
+      <% if (tip.explanation) { %>
+        <div class="tip-note"><%= tip.explanation %></div>
+      <% } %>
+    </div>
+    <div class="tip-cell pick text-center">
+      <span class="pill"><%= tip.prediction %></span>
+    </div>
+  </div>
+<% }) %>

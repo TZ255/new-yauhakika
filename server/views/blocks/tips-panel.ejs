@@ -1,0 +1,47 @@
+<% const days = [{key:'jana', label:'Jana'}, {key:'leo', label:'Leo'}, {key:'kesho', label:'Kesho'}]; %>
+<div class="tip-panel section-card" data-tip-category="<%= category %>">
+  <div class="section-header flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-3">
+    <div>
+      <h2 class="section-title h4 mb-1"><%= heading %></h2>
+      <% if (subheading) { %><p class="section-subtitle mb-0"><%= subheading %></p><% } %>
+    </div>
+    <ul class="nav nav-pills day-toggle" role="tablist">
+      <% days.forEach(({key, label}) => { %>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link <%= key === 'leo' ? 'active' : '' %>"
+            id="tab-<%= category %>-<%= key %>-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#tab-<%= category %>-<%= key %>"
+            type="button"
+            role="tab"
+            aria-controls="tab-<%= category %>-<%= key %>"
+            aria-selected="<%= key === 'leo' ? 'true' : 'false' %>"
+          >
+            <%= label %>
+          </button>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <div class="tip-table shadow-sm">
+    <div class="tip-head d-none d-md-grid">
+      <div>Tarehe / Saa</div>
+      <div>Mechi</div>
+      <div class="text-center">Utabiri</div>
+    </div>
+    <div class="tab-content">
+      <% days.forEach(({ key }) => { %>
+        <div
+          class="tab-pane fade <%= key === 'leo' ? 'show active' : '' %>"
+          id="tab-<%= category %>-<%= key %>"
+          role="tabpanel"
+          aria-labelledby="tab-<%= category %>-<%= key %>-tab"
+        >
+          <%- include('../partials/tip-table-body', { tips: tips[key] || [] }) %>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

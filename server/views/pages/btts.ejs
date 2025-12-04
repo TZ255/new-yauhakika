@@ -1,0 +1,89 @@
+<% const bttsDays = [{key:'jana', label:'Jana'}, {key:'leo', label:'Leo'}, {key:'kesho', label:'Kesho'}]; %>
+<div class="section-stack">
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title display-6 fw-bold mb-2">Mkeka wa Both Teams to Score</h1>
+        <p class="section-subtitle mb-0">GG/NG picks zilizo tayari kwa jana, leo na kesho</p>
+      </div>
+    </div>
+    <p class="mb-0">
+      Mkeka wa GG/NG au Both Teams to Score (BTTS) ni moja wapo ya mikeka yetu ya kila siku inayofanya vizuri sana. Jipatie bashiri za leo na za kila siku za BTTS au GG/NG na uongeze nafasi yako ya ushindi.
+    </p>
+  </section>
+
+  <section>
+    <div class="tip-panel section-card" data-tip-category="btts">
+      <div class="section-header flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-3">
+        <div>
+          <h2 class="section-title h4 mb-1">Utabiri wa Leo - BTTS</h2>
+          <p class="section-subtitle mb-0">Chagua siku kuona mikeka yote ya GG/NG</p>
+        </div>
+        <ul class="nav nav-pills day-toggle" role="tablist">
+          <% bttsDays.forEach(({key, label}) => { %>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link <%= key === 'leo' ? 'active' : '' %>"
+                id="tab-btts-<%= key %>-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#tab-btts-<%= key %>"
+                type="button"
+                role="tab"
+                aria-controls="tab-btts-<%= key %>"
+                aria-selected="<%= key === 'leo' ? 'true' : 'false' %>"
+              >
+                <%= label %>
+              </button>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="tab-content">
+        <% bttsDays.forEach(({ key }) => { %>
+          <div
+            class="tab-pane fade <%= key === 'leo' ? 'show active' : '' %>"
+            id="tab-btts-<%= key %>"
+            role="tabpanel"
+            aria-labelledby="tab-btts-<%= key %>-tab"
+          >
+            <%- include('../partials/btts-cards', { tips: tips[key] || [] }) %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title h5 mb-0">BTTS au GG/NG ni Nini?</h2>
+    </div>
+    <p class="mb-3">Hapa tunatabiri iwapo timu zote zitafungana au vinginevyo.</p>
+    <div class="section-grid columns-2">
+      <div class="info-card h-100">
+        <h3 class="h6">GG au YES</h3>
+        <p class="mb-2">Ina maana timu zote kufungana.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="pill pill-muted">1:1</span>
+          <span class="pill pill-muted">2:1</span>
+          <span class="pill pill-muted">1:2</span>
+          <span class="pill pill-muted">3:1</span>
+          <span class="pill pill-muted">3:2</span>
+          <span class="pill pill-muted">2:2</span>
+        </div>
+      </div>
+      <div class="info-card h-100">
+        <h3 class="h6">NG au NO</h3>
+        <p class="mb-2">Timu moja au zote zisifungane.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="pill pill-muted">0:0</span>
+          <span class="pill pill-muted">0:1</span>
+          <span class="pill pill-muted">1:0</span>
+          <span class="pill pill-muted">2:0</span>
+          <span class="pill pill-muted">3:0</span>
+          <span class="pill pill-muted">0:2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

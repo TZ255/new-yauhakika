@@ -1,0 +1,29 @@
+<div class="section-stack">
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <p class="section-subtitle text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></p>
+        <h1 class="section-title display-6 fw-bold mb-2"><%= post.title %></h1>
+        <p class="section-subtitle text-muted mb-0"><%= post.description %></p>
+      </div>
+      <% if (post.badge) { %>
+        <span class="badge text-bg-accent align-self-start"><%= post.badge %></span>
+      <% } %>
+    </div>
+    <% if (post.tags && post.tags.length) { %>
+      <div class="d-flex gap-2 flex-wrap mb-3">
+        <% post.tags.forEach((tag) => { %>
+          <span class="pill pill-muted">#<%= tag %></span>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <% if (post.heroImage) { %>
+      <img src="<%= post.heroImage %>" alt="<%= post.title %>" class="img-fluid rounded shadow-sm mb-4" />
+    <% } %>
+
+    <article class="prose">
+      <%- content %>
+    </article>
+  </section>
+</div>
