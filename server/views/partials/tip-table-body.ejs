@@ -8,8 +8,8 @@
       <div class="small text-muted"><%= tip.dateLabel || '' %></div>
     </div>
     <div class="tip-cell match">
-      <div class="league-chip"><%= tip.league || 'League TBD' %></div>
-      <div class="fw-semibold fs-6 mt-1"><%= tip.match %></div>
+      <div class="league-chip"><i class="fa-solid fa-trophy"></i> <%= tip.league || 'League TBD' %></div>
+      <div class="fw-semibold fs-6 mt-1"><i class="fa-regular fa-futbol"></i> <%= tip.match %></div>
       <% if (tip.explanation) { %>
         <div class="tip-note"><%= tip.explanation %></div>
       <% } %>

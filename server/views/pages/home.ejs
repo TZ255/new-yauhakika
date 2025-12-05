@@ -7,22 +7,25 @@
       </div>
     </div>
     <p class="lead">
-      Karibu Mikeka ya Uhakika, tovuti yako bora kwa vidokezo vya kubeti, utabiri wa mpira wa miguu, na takwimu za kina kwa ligi na michuano mbalimbali. Tunazingatia matokeo ya timu kwenye mechi za hivi karibuni ili kukupa mwongozo bora wa kuchagua mikeka yenye nafasi kubwa ya ushindi.
+      Karibu Mikeka ya Uhakika, tovuti yako bora kwa vidokezo vya kubeti, utabiri wa mpira wa miguu, na takwimu za kina
+      kwa ligi na michuano mbalimbali. Tunazingatia matokeo ya timu kwenye mechi za hivi karibuni ili kukupa mwongozo
+      bora wa kuchagua mikeka yenye nafasi kubwa ya ushindi.
     </p>
     <p class="mb-0 alert alert-secondary">
-      Data zetu za kila siku zinajumuisha: Ushindi wa Mechi (1X2), Zaidi/Chini ya magoli (Over/Under), Magoli Kipindi cha Kwanza (Halftime Goals), na Timu Zote Kufungana (BTTS).
+      Data zetu za kila siku zinajumuisha: Ushindi wa Mechi (1X2), Zaidi/Chini ya magoli (Over/Under), Magoli Kipindi
+      cha Kwanza (Halftime Goals), na Timu Zote Kufungana (BTTS).
     </p>
   </section>
 
   <section class="my-3">
-    <%- include('../blocks/tips-panel', { heading: 'Utabiri wa Leo', subheading: 'Chagua siku kutazama mikeka yote ya accumulator', category: 'mega', tips }) %>
+    <%- include('../blocks/tips-panel', { heading: 'Utabiri wa Leo', subheading: 'Chagua siku kutazama mikeka ya siku husika', category: 'mega', tips }) %>
   </section>
 
   <section class="section-card my-3">
     <div class="section-header">
       <div>
-        <h2 class="section-title h5 mb-1">Mikeka Mingine Ya Bure</h2>
-        <p class="section-subtitle mb-0">Ongeza mkeka wako kwa makundi mengine</p>
+        <h2 class="section-title h4 mb-1">Mikeka Mingine Ya Bure</h2>
+        <p class="section-subtitle mb-0">Fuatilia mikeka mingine inayoshinda leo</p>
       </div>
     </div>
     <div class="section-grid columns-3">
@@ -30,24 +33,29 @@
         <img src="/mikeka/over15.webp" class="card-img-top" alt="Over 1.5" />
         <div class="card-body d-flex flex-column">
           <h3 class="h5 text-dark">Mikeka ya Over 1.5</h3>
-          <p class="text-muted flex-grow-1">Utabiri wa mpira wa miguu Over 1.5 - nafasi kubwa za kufunga mabao zaidi ya moja.</p>
-          <a href="/over-15/" class="btn btn-outline-accent mt-auto">Angalia mikeka</a>
+          <p class="text-muted flex-grow-1">Utabiri wa mpira wa miguu Over 1.5 - mechi zenye nafasi kubwa ya kufunga
+            mabao mawili au zaidi.</p>
+          <a href="/over-15/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
-      <div class="card h-100 blog-card" onclick="window.location.href = '/under-over-15-first-half/';" style="cursor: pointer;">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/under-over-15-first-half/';"
+        style="cursor: pointer;">
         <img src="/mikeka/ht15.webp" class="card-img-top" alt="HT 1.5" />
         <div class="card-body d-flex flex-column">
-          <h3 class="h5 text-dark">Under/Over First Half</h3>
-          <p class="text-muted flex-grow-1">Utabiri wa magoli kipindi cha kwanza. Chukua chaguo la haraka na salama.</p>
-          <a href="/under-over-15-first-half/" class="btn btn-outline-accent mt-auto">Fungua</a>
+          <h3 class="h5 text-dark">Under/Over 1.5 First Half</h3>
+          <p class="text-muted flex-grow-1">Utabiri wa magoli kipindi cha kwanza. Juu au Chini ya 1.5! Mikeka ya odds
+            kubwa.</p>
+          <a href="/under-over-15-first-half/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
-      <div class="card h-100 blog-card" onclick="window.location.href = '/both-teams-to-score/';" style="cursor: pointer;">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/both-teams-to-score/';"
+        style="cursor: pointer;">
         <img src="/mikeka/btts.webp" class="card-img-top" alt="BTTS" />
         <div class="card-body d-flex flex-column">
-          <h3 class="h5 text-dark">Both Teams to Score</h3>
-          <p class="text-muted flex-grow-1">Mikeka ya GG/NG kwa kila siku, jumamosi na jumapili.</p>
-          <a href="/both-teams-to-score/" class="btn btn-outline-accent mt-auto">Tazama BTTS</a>
+          <h3 class="h5 text-dark">Both Teams to Score (GG)</h3>
+          <p class="text-muted flex-grow-1">Mikeka ya GG - Timu zote kufungana. Mikeka ya kila siku yenye odds nzuri kwa
+            ushindi mkubwa</p>
+          <a href="/both-teams-to-score/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
     </div>
@@ -56,28 +64,101 @@
   <section class="section-card mt-5">
     <div class="section-header">
       <div>
-        <h2 class="section-title h5 mb-1">Makala Zilizoongezwa Hivi Karibuni</h2>
+        <h2 class="section-title h4 mb-1">Makala Zilizoongezwa Hivi Karibuni</h2>
         <p class="section-subtitle mb-0">Soma makala mbalimbali za michezo na mikeka</p>
       </div>
     </div>
     <% if (!latestPosts || latestPosts.length === 0) { %>
-      <div class="alert alert-info mb-0">Hakuna makala kwa sasa.</div>
+    <div class="alert alert-info mb-0">Hakuna makala kwa sasa.</div>
     <% } else { %>
-      <div class="section-grid columns-3">
-        <% latestPosts.forEach((post) => { %>
-          <div class="card h-100 blog-card">
-            <% if (post.heroImage) { %>
-            <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
-            <% } %>
-            <div class="card-body d-flex flex-column">
-              <div class="small text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></div>
-              <h3 class="h6 fw-bold text-dark"><%= post.title %></h3>
-              <p class="text-muted flex-grow-1"><%= post.description %></p>
-              <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>/">Soma zaidi</a>
-            </div>
-          </div>
-        <% }) %>
+    <div class="section-grid columns-3">
+      <% latestPosts.forEach((post) => { %>
+      <div class="card h-100 blog-card">
+        <% if (post.heroImage) { %>
+        <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
+        <% } %>
+        <div class="card-body d-flex flex-column">
+          <div class="small text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></div>
+          <h3 class="h6 fw-bold text-dark"><%= post.title %></h3>
+          <p class="text-muted flex-grow-1"><%= post.description %></p>
+          <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>/">Soma zaidi</a>
+        </div>
       </div>
+      <% }) %>
+    </div>
     <% } %>
+  </section>
+
+  <section class="section-card my-5">
+    <h2 class="section-title h4 mb-1">Karibu MIKEKA<span class="premium-color">YA</span>UHAKIKA – Tovuti Sahihi ya Kubashiri Mpira</h2>
+
+    <p>MIKEKA<span class="premium-color">YA</span>UHAKIKA ni chanzo kinachoaminika cha <b>1X2</b>, <b>Double Chance</b>, <b>Over/Under</b> na <b>BTTS</b>
+      kwa mashabiki wa kubashiri. Tunachambua mechi kwa umakini kulingana na takwimu za hivi karibuni, uimara wa timu,
+      form ya michezo ya karibuni na taarifa muhimu kama majeruhi na lineups. Lengo letu ni kukusaidia kufanya maamuzi
+      sahihi na kuongeza nafasi zako za ushindi kila siku.</p>
+
+    <p>Kila siku tunakuletea takwimu na uchambuzi mpana ukiwemo: matokeo ya mechi nzima (Full Time 1X2), idadi ya mabao
+      (Over/Under), magoli kipindi cha kwanza, <b>Both Teams To Score (BTTS)</b>, kona, bookings na kadi.</p>
+
+    <h3 class="section-title h5 mb-1">1X2 – Utabiri Maarufu Zaidi</h3>
+
+    <p>Utabiri wa 1X2 ndio aina maarufu zaidi duniani kwa kubaini mshindi wa mechi baada ya dakika 90. Kwa kutumia
+      takwimu, form ya timu, head-to-head na mbinu za kitaalam, tunatoa mapendekezo yanayosasishwa mara mbili kwa siku
+      ili uhakikishe unapata taarifa za kisasa kabisa.</p>
+
+    <h3 class="section-title h5 mb-1">Kubashiri Mpira... Njia Rahisi ya Kujipatia Kipato</h3>
+
+    <p>Leo hii, kubashiri mpira mtandaoni kumegeuka kuwa moja ya vyanzo halali vya kujiongezea kipato. Lakini ili
+      ushinde mara kwa mara, unahitaji zaidi ya bahati... unahitaji uchambuzi makini. Kubashiri si sawa na bahati nasibu au
+      kamari ya mtu kwa mtu. Hapa tunahesabu uwezekano, takwimu na ubora wa timu ili kubaini matokeo yanayowezekana.</p>
+
+    <p>Utabiri bora hutokana na uchambuzi thabiti... kujua form ya timu, rekodi zao, nguvu na udhaifu, pamoja na thamani
+      ya odds. Mbinu hizi ndizo zinazoongeza nafasi zako za ushindi.</p>
+
+    <h3 class="section-title h5 mb-1">Kwa Nini Wengi Hupoteza Mikeka Yao?</h3>
+
+    <p>Mitandaoni zipo tovuti nyingi zinazoahidi ushindi mkubwa bila msingi wowote. Mara nyingi ukilipa pesa kupata tip,
+      unachopewa hakitakuwa cha uhakika... mwisho wa siku unapoteza bet na pesa zako. Hapo ndipo hasira na kuchoka
+      huanzia.</p>
+
+    <p>Ukweli ni mmoja: <b>Tip nzuri zaidi ni ile ambayo imechambuliwa kwa data sahihi</b>. Utabiri bora ni ule uliotokana na takwimu, utafiti wako na taarifa kutoka vyanzo vingi. Hayo ndiyo yanayokupa uhakika wa kuchagua mechi yenye nafasi halisi
+      ya kushinda.</p>
+
+    <h3 class="section-title h5 mb-1">Kwanini Ututumie – MIKEKA<span class="premium-color">YA</span>UHAKIKA</h3>
+    <p>MIKEKA<span class="premium-color">YA</span>UHAKIKA ni tovuti huru ya utabiri wa mpira inayotoa tabiri bora zaidi Tanzania na Afrika Mashariki kwa ujumla. Kila siku tunakuwekea:</p>
+
+    <ul>
+      <li>Takwimu za mechi za leo</li>
+      <li>Uchambuzi wa kitaalam</li>
+      <li>Taarifa za betting markets mbalimbali</li>
+      <li>Mapendekezo ya bure ya 1X2, Double Chance, Over/Under na BTTS</li>
+    </ul>
+
+    <p>Tunafanya hivi si kwa sababu ya kuuza tips tu... bali kwa sababu tuna passion halisi ya mpira na uchambuzi.</p>
+
+    <h3 class="section-title h5 mb-1">Takwimu na Uchambuzi wa Kina</h3>
+
+    <p>Mbali na tips, unaweza kupata takwimu za timu, form yao katika mechi 5–10 zilizopita, na mwenendo wa ligi husika.
+      Mbali na 1X2, tunakupa pia:</p>
+
+    <ul>
+      <li>Over/Under kutoka 0.5 hadi 4.5</li>
+      <li>Magoli kipindi cha kwanza</li>
+      <li>BTTS</li>
+      <li>Idadi ya kona</li>
+      <li>Kadi na bookings</li>
+    </ul>
+
+    <p>Utabiri wetu wa kila siku unategemea taarifa halisi kama:</p>
+
+    <ul>
+      <li>Takwimu za mechi</li>
+      <li>Lineups na form ya wachezaji</li>
+      <li>Majeruhi na waliofungiwa</li>
+      <li>Historia ya timu mbili zinapokutana</li>
+    </ul>
+
+    <p>Takwimu zote tunazotumia zinapatikana wazi kwenye tovuti yetu ili uweze kuzihakiki mwenyewe.</p>
+
   </section>
 </div>

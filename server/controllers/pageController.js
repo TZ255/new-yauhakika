@@ -7,7 +7,7 @@ export async function renderHome(req, res) {
   const latestPosts = (await loadPosts()).slice(0, 3);
   res.render('pages/home', {
     activeId: 'home',
-    meta: pageMeta({ title: 'Mikeka ya Uhakika | Pata Mikeka ya Bure Kila Siku', path: '/' }),
+    meta: pageMeta({ title: 'Mikeka ya Uhakika | Pata Mikeka ya Bure Kila Siku', path: '/', image: '/social_img.webp' }),
     tips,
     latestPosts,
   });
@@ -20,8 +20,9 @@ export async function renderOver15(req, res) {
     meta: pageMeta({
       title: 'Mikeka ya Over 1.5 ya Uhakika Leo',
       description:
-        'Utabiri wa mpira wa miguu Over 1.5 - Pata mechi zenye nafasi kubwa za kufunga mabao zaidi ya moja.',
+        'Utabiri wa mpira wa miguu Over 1.5 mechi za leo - Pata mechi zenye nafasi kubwa za kufunga mabao mawili au zaidi.',
       path: '/over-15/',
+      image: '/social_img.webp',
     }),
     tips,
   });
@@ -33,8 +34,9 @@ export async function renderBtts(req, res) {
     activeId: 'btts',
     meta: pageMeta({
       title: 'Mikeka ya Uhakika ya Both Teams to Score',
-      description: 'Pata mikeka ya uhakika ya Both Teams to Score (GG / NG) hapa kila siku.',
+      description: 'Pata mikeka ya uhakika ya Both Teams to Score (GG / NG) hapa kila siku. Utabiri wa mechi za leo na kesho za GG',
       path: '/both-teams-to-score/',
+      image: '/social_img.webp',
     }),
     tips,
   });
@@ -45,10 +47,11 @@ export async function renderHt15(req, res) {
   res.render('pages/ht15', {
     activeId: 'ht15',
     meta: pageMeta({
-      title: 'Mikeka ya Under/Over 1.5 Halftime ya Uhakika',
+      title: 'Mikeka ya Under/Over 1.5 Halftime',
       description:
         'Utabiri wa leo wa Under/Over 1.5 Halftime – bashiri kwa chaguo la magoli Under/Over 1.5 kipindi cha kwanza.',
       path: '/under-over-15-first-half/',
+      image: '/social_img.webp',
     }),
     tips,
   });

@@ -1,8 +1,10 @@
+import './env.js';
+
 export const SITE = {
   name: 'Mikeka ya Uhakika',
   description:
     'Tanzania football tips & predictions. Pata mikeka ya uhakika kila siku. Mikeka ya bure, mikeka ya jumamosi na jumapili inapatikana hapa. Karibu nyumba ya ushindi',
-  url: process.env.SITE_URL || 'http://localhost:3000',
+  url: process.env.SITE_URL,
   googleVerification: 'bre84rQ3JQJirLREUOE-3jYY0pU3uo8Gd8ddpOtJ4y8',
   defaultImage: '/profile.webp',
 };

@@ -4,51 +4,42 @@
     <div class="section-header">
       <div>
         <h1 class="section-title display-6 fw-bold mb-2">Mkeka wa Both Teams to Score</h1>
-        <p class="section-subtitle mb-0">GG/NG picks zilizo tayari kwa jana, leo na kesho</p>
+        <p class="section-subtitle mb-0">Timu zote kufungana (GG)</p>
       </div>
     </div>
-    <p class="mb-0">
-      Mkeka wa GG/NG au Both Teams to Score (BTTS) ni moja wapo ya mikeka yetu ya kila siku inayofanya vizuri sana. Jipatie bashiri za leo na za kila siku za BTTS au GG/NG na uongeze nafasi yako ya ushindi.
+    <p class="lead">
+      Mkeka wa GG/NG au Both Teams to Score (BTTS) ni moja wapo ya mikeka yetu ya kila siku inayofanya vizuri sana.
+      Jipatie bashiri za leo na za kila siku za BTTS au GG/NG na uongeze nafasi yako ya ushindi.
     </p>
   </section>
 
   <section>
     <div class="tip-panel section-card" data-tip-category="btts">
-      <div class="section-header flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-3">
+      <div
+        class="section-header flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-3">
         <div>
           <h2 class="section-title h4 mb-1">Utabiri wa Leo - BTTS</h2>
           <p class="section-subtitle mb-0">Chagua siku kuona mikeka yote ya GG/NG</p>
         </div>
         <ul class="nav nav-pills day-toggle" role="tablist">
           <% bttsDays.forEach(({key, label}) => { %>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link text-dark <%= key === 'leo' ? 'active' : '' %>"
-                id="tab-btts-<%= key %>-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#tab-btts-<%= key %>"
-                type="button"
-                role="tab"
-                aria-controls="tab-btts-<%= key %>"
-                aria-selected="<%= key === 'leo' ? 'true' : 'false' %>"
-              >
-                <%= label %>
-              </button>
-            </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark <%= key === 'leo' ? 'active' : '' %>" id="tab-btts-<%= key %>-tab"
+              data-bs-toggle="pill" data-bs-target="#tab-btts-<%= key %>" type="button" role="tab"
+              aria-controls="tab-btts-<%= key %>" aria-selected="<%= key === 'leo' ? 'true' : 'false' %>">
+              <%= label %>
+            </button>
+          </li>
           <% }) %>
         </ul>
       </div>
 
       <div class="tab-content">
         <% bttsDays.forEach(({ key }) => { %>
-          <div
-            class="tab-pane fade <%= key === 'leo' ? 'show active' : '' %>"
-            id="tab-btts-<%= key %>"
-            role="tabpanel"
-            aria-labelledby="tab-btts-<%= key %>-tab"
-          >
-            <%- include('../partials/btts-cards', { tips: tips[key] || [] }) %>
-          </div>
+        <div class="tab-pane fade <%= key === 'leo' ? 'show active' : '' %>" id="tab-btts-<%= key %>" role="tabpanel"
+          aria-labelledby="tab-btts-<%= key %>-tab">
+          <%- include('../partials/btts-cards', { tips: tips[key] || [] }) %>
+        </div>
         <% }) %>
       </div>
     </div>
@@ -56,34 +47,66 @@
 
   <section class="section-card">
     <div class="section-header">
-      <h2 class="section-title h5 mb-0">BTTS au GG/NG ni Nini?</h2>
+      <h2 class="section-title h4 mb-0">Mwongozo wa Kubashiri Both Teams To Score (GG/NG)</h2>
     </div>
-    <p class="mb-3">Hapa tunatabiri iwapo timu zote zitafungana au vinginevyo.</p>
-    <div class="section-grid columns-2">
-      <div class="info-card h-100">
-        <h3 class="h6">GG au YES</h3>
-        <p class="mb-2">Ina maana timu zote kufungana.</p>
-        <div class="d-flex flex-wrap gap-2">
-          <span class="pill pill-muted">1:1</span>
-          <span class="pill pill-muted">2:1</span>
-          <span class="pill pill-muted">1:2</span>
-          <span class="pill pill-muted">3:1</span>
-          <span class="pill pill-muted">3:2</span>
-          <span class="pill pill-muted">2:2</span>
-        </div>
-      </div>
-      <div class="info-card h-100">
-        <h3 class="h6">NG au NO</h3>
-        <p class="mb-2">Timu moja au zote zisifungane.</p>
-        <div class="d-flex flex-wrap gap-2">
-          <span class="pill pill-muted">0:0</span>
-          <span class="pill pill-muted">0:1</span>
-          <span class="pill pill-muted">1:0</span>
-          <span class="pill pill-muted">2:0</span>
-          <span class="pill pill-muted">3:0</span>
-          <span class="pill pill-muted">0:2</span>
-        </div>
-      </div>
-    </div>
+
+    <p>Utabiri wa <b>Both Teams To Score (BTTS)</b> maarufu kama <b>GG/NG</b> ni moja ya masoko rahisi na nafuu
+      kuyabashiri. Ni rahisi kuelewa na haihitaji maelezo mengi... unachotazama ni kama timu zote mbili zitafunga au la
+      ndani ya dakika 90.</p>
+
+    <p>GG (Yes) ina maana timu zote mbili zinatakiwa kufunga angalau bao moja kila moja.
+      NG (No) ina maana mechi inapaswa kuisha bila mojawapo ya timu kufunga, au hata zote mbili zikikosa.</p>
+
+    <h3 class="section-title h5 mb-1">Jinsi BTTS Inavyofanya Kazi (GG/NG)</h3>
+
+    <p>Tunapozungumzia BTTS, tunatabiri uwezekano wa timu zote mbili kupata mabao. Haijalishi mechi ni ngumu au
+      rahisi...
+      muhimu ni timu zote kufanikiwa kutikisa nyavu kabla ya mchezo kumalizika.</p>
+
+    <p>Swali kuu la kujiuliza kabla ya kuchagua GG/NG ni: <b>Hizi timu mbili zimekutana mara ngapi na matokeo yao ya
+        kawaida
+        yamekuwa yapi?</b>
+      Majibu yake yanapatikana kupitia takwimu za mechi zao zilizopita, form ya timu, ligi wanazocheza na mashindano
+      mbalimbali.</p>
+
+    <h3 class="section-title h5 mb-1">Jinsi ya Kuchagua Mechi Sahihi za GG</h3>
+
+    <p>Ni busara kuchagua mechi zenye nafasi kubwa ya timu zote kufunga, mfano:</p>
+
+    <ul>
+      <li>Timu zote zina wastani mzuri wa kufunga mabao kwenye mechi zao 5–10 zilizopita</li>
+      <li>Ulinzi wa timu zote mbili hauna nguvu sana</li>
+      <li>Head-to-head zao zinaonyesha mechi zao mara nyingi huwa na magoli kutoka pande zote</li>
+      <li>Timu zote zinacheza soka la kushambulia na zina washambuliaji katika form</li>
+    </ul>
+
+    <p>Unashauriwa pia kuchagua mechi ambayo angalau timu moja ina asilimia ya juu ya kufunga kuliko nyingine... hii
+      hupunguza hatari ya mechi kuisha 0-0 au timu kukosa magoli kabisa.</p>
+
+    <h3 class="section-title h5 mb-1">Mifano ya Matokeo ya GG (Yes)</h3>
+
+    <ul>
+      <li>1-1</li>
+      <li>2-1, 1-2</li>
+      <li>2-2</li>
+      <li>3-1, 1-3</li>
+      <li>3-2, 2-3</li>
+      <li>N.k</li>
+    </ul>
+
+    <h3 class="section-title h5 mb-1">Mifano ya Matokeo ya NG (No)</h3>
+
+    <ul>
+      <li>0-0</li>
+      <li>1-0, 0-1</li>
+      <li>2-0, 0-2</li>
+      <li>3-0, 0-3</li>
+      <li>4-0, 0-4</li>
+      <li>N.k</li>
+    </ul>
+
+    <p>Kwa kifupi... GG ni nzuri kwa mechi za ushambuliaji, wakati NG ni bora kwa mechi za ulinzi mkali au timu dhaifu
+      dhidi ya timu yenye nguvu. Tumia takwimu sahihi ili kuongeza nafasi za kuchukua ushindi.</p>
   </section>
+
 </div>
