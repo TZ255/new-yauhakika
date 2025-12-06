@@ -2,7 +2,6 @@ import './config/env.js';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
 import expressLayouts from 'express-ejs-layouts';
@@ -33,7 +32,6 @@ app.use(
   })
 );
 app.use(compression());
-app.use(morgan('dev'));
 
 // Parsers
 app.use(express.urlencoded({ extended: false }));
