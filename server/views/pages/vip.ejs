@@ -1,0 +1,127 @@
+<% const payment = user?.payment || {}; %>
+<% const paidOn = payment?.paidOn ? new Date(payment.paidOn) : null; %>
+<% const expiresAt = payment?.expiresAt ? new Date(payment.expiresAt) : null; %>
+<% const now = new Date(); %>
+<% const isActive = user?.isPaid && expiresAt && expiresAt > now; %>
+
+<div class="section-stack">
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <p class="section-subtitle text-uppercase small mb-1">Premium</p>
+        <h1 class="section-title h4 mb-1">VIP Tips</h1>
+        <p class="section-subtitle mb-0">ODDS 2 - 3 ZA UHAKIKA KILA SIKU</p>
+      </div>
+    </div>
+
+    <% if (expired) { %>
+      <div class="alert alert-warning mb-3">
+        Huwezi kuona mikeka ya VIP. Malipo yako yamekwisha. Tafadhali lipia ili kuendelea kufurahia mikeka ya VIP.
+      </div>
+    <% } %>
+
+    <% if (user) { %>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-7">
+          <div class="h-100 p-4 rounded-3 border position-relative overflow-hidden" style="background: linear-gradient(135deg, #0d6efd0d, #0d6efd18);">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="fw-bold text-inverse fs-5"><%= user.name %></div>
+                <div class="small text-muted"><i class="fa-regular fa-envelope me-1"></i><%= user.email %></div>
+              </div>
+              <form action="/auth/logout" method="post" class="m-0">
+                <button type="submit" class="btn btn-outline-secondary btn-sm">Toka</button>
+              </form>
+            </div>
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+              <span class="badge <%= isActive ? 'text-bg-success' : 'text-bg-warning' %> px-3 py-2">
+                <%= isActive ? 'Uanachama hai' : 'Uanachama umekwisha' %>
+              </span>
+              <span class="badge <%= user.isPaid ? 'text-bg-accent' : 'text-bg-secondary' %> px-3 py-2">
+                <%= user.isPaid ? 'Imelipiwa' : 'Bado haijalipiwa' %>
+              </span>
+              <span class="badge text-bg-secondary px-3 py-2 text-uppercase"><%= user.role || 'user' %></span>
+            </div>
+            <div class="row text-center g-2">
+              <div class="col-4">
+                <div class="small text-muted">Umelipa</div>
+                <div class="fw-semibold"><%= paidOn ? paidOn.toLocaleString('sv-SE') : '—' %></div>
+              </div>
+              <div class="col-4">
+                <div class="small text-muted">Inaisha</div>
+                <div class="fw-semibold"><%= expiresAt ? expiresAt.toLocaleString('sv-SE') : '—' %></div>
+              </div>
+              <div class="col-4">
+                <div class="small text-muted">Hali</div>
+                <div class="fw-semibold"><%= isActive ? 'Inaendelea' : 'Haipo' %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="h-100 p-4 rounded-3 border bg-white">
+            <div class="fw-semibold text-inverse mb-2">Faida za VIP</div>
+            <ul class="list-unstyled mb-3 small">
+              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-star text-warning"></i> Odds 2 - 3 za uhakika kila siku</li>
+              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-shield-halved text-success"></i> Utabiri uliopitiwa na wachambuzi</li>
+              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-clock text-primary"></i> Masasisho ya haraka kabla ya mechi</li>
+            </ul>
+            <% if (!isActive) { %>
+              <div class="alert alert-info small mb-3">
+                Lipia sasa ili kufungua mikeka ya VIP (TZS 8,500 kwa wiki).
+              </div>
+              <div class="small text-muted text-center mb-2">Lipia kupitia fomu ya malipo kisha utapata VIP moja kwa moja.</div>
+              <button class="btn btn-accent w-100" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                <i class="fa-solid fa-wallet me-1"></i> Lipia sasa
+              </button>
+              <a href="mailto:support@mikekayauhakika.com" class="btn btn-outline-secondary w-100 mt-2">Wasiliana Kujipatia VIP</a>
+            <% } else { %>
+              <div class="alert alert-success small mb-0">Uanachama wako uko hai. Furahia mikeka ya VIP hapa chini.</div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="alert alert-warning d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold">Ingia ili kuona taarifa zako za VIP na kupata masasisho</div>
+          <div class="small text-muted">Huna akaunti? Jisajili bure kisha lipia ili kuendelea na VIP.</div>
+        </div>
+        <div class="d-flex gap-2">
+          <a class="btn btn-outline-secondary" href="/auth/register">Jisajili</a>
+          <a class="btn btn-accent" href="/auth/login">Ingia</a>
+        </div>
+      </div>
+    <% } %>
+  </section>
+
+  <% if (isActive && tips) { %>
+    <section class="my-3">
+      <%- include('../blocks/tips-panel', { heading: 'Mikeka ya VIP', subheading: 'Tips zenye ubora wa juu kila siku', category: 'vip', tips }) %>
+    </section>
+  <% } else if (!user) { %>
+    <section class="section-card my-3 text-center">
+      <div class="mb-2 fw-semibold text-inverse">Tips za VIP zitaletwa hapa mara tu utakapolipia.</div>
+      <div class="text-muted">Ingia au jisajili ili kuendelea.</div>
+    </section>
+  <% } %>
+</div>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-wallet me-1"></i> Malipo ya VIP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Funga"></button>
+      </div>
+      <div class="modal-body">
+        <%- include('../partials/payment-form') %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="fa-regular fa-circle-xmark me-1"></i> Funga
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

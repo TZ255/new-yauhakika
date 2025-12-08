@@ -1,6 +1,7 @@
 import { pageMeta } from '../utils/meta.js';
-import { getBttsTips, getHt15Tips, getMegaTips, getOver15Tips } from './tipsController.js';
+import { getBttsTips, getHt15Tips, getMegaTips, getOver15Tips, getVipTips } from './tipsController.js';
 import { loadPosts } from '../utils/blog.js';
+import { enforceVipAccess } from '../utils/vipAccess.js';
 
 export async function renderHome(req, res) {
   const tips = await getMegaTips();
@@ -54,6 +55,27 @@ export async function renderHt15(req, res) {
       image: '/social_img.webp',
     }),
     tips,
+  });
+}
+
+export async function renderVip(req, res) {
+  const { user: freshUser, isActive, expired } = await enforceVipAccess(req.user, req);
+  const tips = isActive ? await getVipTips() : null;
+  if (freshUser) {
+    req.user = freshUser;
+    res.locals.user = freshUser;
+  }
+  res.render('pages/vip', {
+    activeId: 'vip',
+    meta: pageMeta({
+      title: 'VIP Tips | Mikeka ya Uhakika',
+      description: 'Mikeka ya VIP inayosasishwa kila siku.',
+      path: '/vip/',
+      image: '/social_img.webp',
+    }),
+    tips,
+    user: freshUser,
+    expired,
   });
 }
 

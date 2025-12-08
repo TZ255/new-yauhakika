@@ -11,6 +11,7 @@ export const SITE = {
 
 export const NAV_ITEMS = [
   { id: 'home', label: 'Home - Acca Tips', href: '/' },
+  { id: 'vip', label: 'VIP Tips', href: '/vip/' },
   { id: 'over15', label: 'Over 1.5 Tips', href: '/over-15/' },
   { id: 'btts', label: 'Both Teams to Score', href: '/both-teams-to-score/' },
   {

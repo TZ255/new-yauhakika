@@ -1,6 +1,7 @@
 import bttsModel from '../models/btts.js';
 import fametipsModel from '../models/fametips.js';
 import correctScoreModel from '../models/correctScoreModel.js';
+import vipModel from '../models/vip.js';
 
 const TZ = 'Africa/Nairobi';
 
@@ -55,7 +56,8 @@ export async function getMegaTips() {
   const docs = await fametipsModel
     .find({ siku: { $in: [today, yesterday, tomorrow] } })
     .sort('time')
-    .lean();
+    .lean()
+    .cache(600);
 
   const buckets = emptyBuckets();
   docs.forEach((doc) => {
@@ -74,7 +76,8 @@ export async function getOver15Tips() {
   const docs = await correctScoreModel
     .find({ siku: { $in: [today, yesterday, tomorrow] }, tip: { $in: [...overHome, ...overAway] }, time: { $gt: '12:00' } })
     .sort('time')
-    .lean();
+    .lean()
+    .cache(600);
 
   const buckets = emptyBuckets();
   docs.forEach((doc) => {
@@ -92,7 +95,8 @@ export async function getBttsTips() {
   const docs = await bttsModel
     .find({ date: { $in: [today, yesterday, tomorrow] } })
     .sort('time')
-    .lean();
+    .lean()
+    .cache(600);
 
   const buckets = emptyBuckets();
   docs.forEach((doc) => {
@@ -112,7 +116,8 @@ export async function getHt15Tips() {
   const docs = await correctScoreModel
     .find({ siku: { $in: [today, yesterday, tomorrow] }, tip: { $in: [...under, ...over] } })
     .sort('time')
-    .lean();
+    .lean()
+    .cache(600);
 
   const buckets = emptyBuckets();
   docs.forEach((doc) => {
@@ -123,6 +128,24 @@ export async function getHt15Tips() {
     if (doc.siku === today) buckets.leo.push(tip);
     if (doc.siku === yesterday) buckets.jana.push(tip);
     if (doc.siku === tomorrow) buckets.kesho.push(tip);
+  });
+
+  return buckets;
+}
+
+export async function getVipTips() {
+  const { today, yesterday, tomorrow } = dateStrings();
+  const docs = await vipModel
+    .find({ date: { $in: [today, yesterday, tomorrow] } })
+    .sort('time')
+    .lean();
+
+  const buckets = emptyBuckets();
+  docs.forEach((doc) => {
+    const tip = mapTip(doc, doc.tip);
+    if (doc.date === today) buckets.leo.push(tip);
+    if (doc.date === yesterday) buckets.jana.push(tip);
+    if (doc.date === tomorrow) buckets.kesho.push(tip);
   });
 
   return buckets;

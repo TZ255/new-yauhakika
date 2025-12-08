@@ -1,0 +1,28 @@
+<% const flashData = typeof flash !== 'undefined' ? flash : {}; %>
+<% const entries = Object.entries(flashData).filter(([, msgs]) => Array.isArray(msgs) && msgs.length); %>
+<% if (entries.length) { %>
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+    <% entries.forEach(([type, msgs]) => { %>
+      <% msgs.forEach((msg, idx) => { %>
+        <div
+          class="toast text-bg-<%= ['danger', 'error'].includes(type) ? 'danger' : type %> show mb-2"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-bs-delay="3500"
+        >
+          <div class="toast-body d-flex justify-content-between align-items-start gap-2">
+            <span><%= msg %></span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      <% }) %>
+    <% }) %>
+  </div>
+  <script>
+    (function () {
+      const els = document.querySelectorAll('.toast');
+      els.forEach((el) => new bootstrap.Toast(el, { autohide: true, delay: Number(el.dataset.bsDelay) || 3500 }).show());
+    })();
+  </script>
+<% } %>
