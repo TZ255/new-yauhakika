@@ -4,6 +4,7 @@ import PaymentBin from '../models/paymentBin.js';
 import { sendTelegramNotification } from '../utils/sendTelegramNotifications.js';
 import { confirmWeeklySubscription } from '../utils/subscription.js';
 import User from '../models/user.js';
+import { isValidPhoneNumber } from 'tanzanian-phone-validator';
 
 const router = Router();
 
@@ -17,9 +18,8 @@ function isValidEmail(email = '') {
 }
 
 function normalizePhone(phone9 = '') {
-  const clean = String(phone9).trim();
-  if (!/^[1-9][0-9]{8}$/.test(clean)) return null;
-  return `255${clean}`;
+  if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
+  return `255${phone9.trim()}`;
 }
 
 router.get('/api/pay-form', async (req, res) => {
@@ -45,7 +45,7 @@ router.post('/api/pay', async (req, res) => {
       return res.render('fragments/payment-error', { layout: false, message: 'Barua pepe si sahihi. Tafadhali login upya.' });
     }
     if (!phone) {
-      return res.render('fragments/payment-error', { layout: false, message: 'Namba ya simu si sahihi. Weka tarakimu 9 bila kuanza na 0.' });
+      return res.render('fragments/payment-error', { layout: false, message: 'Namba ya simu si sahihi. Weka tarakimu 9 bila kuanza na 0' });
     }
 
     const orderId = generateOrderId(phone.slice(-9));

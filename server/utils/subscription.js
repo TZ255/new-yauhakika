@@ -3,9 +3,18 @@ import { sendEmail } from './sendEmail.js';
 
 const DAYS_7 = 1000 * 60 * 60 * 24 * 7;
 const TZ = 'Africa/Nairobi';
+const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+  timeZone: TZ,
+});
 
-function formatDateTime(date) {
-  return date.toLocaleString('sv-SE', { timeZone: TZ });
+function formatDate(date) {
+  return dateFormatter.format(date);
 }
 
 export async function confirmWeeklySubscription(email) {
@@ -34,8 +43,8 @@ export async function confirmWeeklySubscription(email) {
     <p>Habari ${user.name || 'rafiki'},</p>
     <p>Ulipiaji wako wa wiki umethibitishwa. Akaunti yako ya VIP imewezeshwa mara moja.</p>
     <p>
-      <strong>Umelipa:</strong> ${formatDateTime(now)}<br />
-      <strong>Inaisha:</strong> ${formatDateTime(expiresAt)}
+      <strong>Umelipa:</strong> ${formatDate(now)}<br />
+      <strong>Inaisha:</strong> ${formatDate(expiresAt)}
     </p>
     <p>Ingia hapa kuona mikeka ya VIP: <a href="${vipUrl}">${vipUrl}</a></p>
     <p>Asante kwa kuchagua Mikeka ya Uhakika. Ushindi mwema!</p>

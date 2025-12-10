@@ -185,22 +185,6 @@
     color: #9ca3af;
   }
 
-  #payment-area .payment-invalid-feedback {
-    display: none;
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    padding-left: 0.5rem;
-  }
-
-  #payment-area .was-validated .phone-input:invalid~.payment-invalid-feedback {
-    display: block;
-  }
-
-  #payment-area .was-validated .phone-input-group:has(.phone-input:invalid) {
-    border-color: #ef4444;
-  }
-
   #payment-area .submit-btn {
     width: 100%;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -309,7 +293,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><i class="fa-solid fa-wallet me-1"></i> Malipo ya VIP</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Funga"></button>
       </div>
       <div class="modal-body">
         <div id="payment-area">
@@ -326,15 +309,15 @@
                 <div>
                   <label for="payPhone" class="payment-label">
                     <i class="fa-solid fa-phone"></i>
-                    Namba ya Simu
+                    Namba Yako ya Simu
                   </label>
-                  <div class="phone-input-group">
+                  <div class="phone-input-group mb-0">
                     <span class="phone-prefix">+255</span>
                     <input type="text" class="phone-input" id="payPhone" name="phone9" inputmode="numeric"
                       pattern="[1-9][0-9]{8}" minlength="9" maxlength="9" placeholder="Mfano: 712345678"
                       autocomplete="tel" required>
                   </div>
-                  <div class="payment-invalid-feedback">Weka tarakimu 9 bila kuanza na 0.</div>
+                  <div class="small text-muted mt-0 ps-1">Weka tarakimu 9 bila kuanza na 0</div>
                 </div>
                 <!-- Inline feedback area for errors (updated via OOB swap) -->
                 <div id="pay-form-feedback" class="d-none"></div>
@@ -356,7 +339,7 @@
         <div id="modal-root"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-outline-secondary" onclick="window.location.reload()">
           <i class="fa-regular fa-circle-xmark me-1"></i> Funga
         </button>
       </div>
