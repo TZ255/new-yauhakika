@@ -12,6 +12,7 @@ import flash from 'connect-flash';
 import router from './routes/index.js';
 import { connectDB } from './config/db.js';
 import { SITE, NAV_ITEMS } from './config/site.js';
+import { pageMeta } from './utils/meta.js';
 import './config/passport.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,10 +87,16 @@ app.use('/', router);
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).render('pages/404', {
-    title: 'Ukurasa haujapatikana',
-    description: 'Samahani, ukurasa unaotafuta haupo.',
-  });
+  if (!res.headersSent && req.accepts('html')) {
+    const meta = pageMeta({
+      title: 'Ukurasa haujapatikana',
+      description: 'Samahani, ukurasa unaotafuta haupo.',
+      path: req.originalUrl || '/',
+    });
+    return res.status(404).render('pages/404', { activeId: null, meta });
+  }
+
+  return res.status(404).json({ message: 'Not found' });
 });
 
 export default app;

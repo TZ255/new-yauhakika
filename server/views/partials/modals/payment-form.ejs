@@ -303,50 +303,66 @@
   }
 </style>
 
-<!-- Wrapper where HTMX swaps fragments -->
-<!-- This form should be inside the modal -->
-<div id="payment-area">
-  <div class="payment-card">
-    <div class="payment-header">
-      <i class="fa-solid fa-wallet payment-header-icon"></i>
-      <h5>Lipa kwa Simu</h5>
-    </div>
-    <div class="payment-body">
-      <form id="vip-payment-form" hx-post="/api/pay" hx-target="#payment-area" hx-swap="innerHTML"
-        hx-disabled-elt="input, button" class="needs-validation" novalidate>
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+  data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-wallet me-1"></i> Malipo ya VIP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Funga"></button>
+      </div>
+      <div class="modal-body">
+        <div id="payment-area">
+          <div class="payment-card">
+            <div class="payment-header">
+              <i class="fa-solid fa-wallet payment-header-icon"></i>
+              <h5>Lipa kwa Simu</h5>
+            </div>
+            <div class="payment-body">
+              <form id="vip-payment-form" hx-post="/api/pay" hx-target="#payment-area" hx-swap="innerHTML"
+                hx-disabled-elt="input, button" class="needs-validation" novalidate>
 
-        <!-- Phone: +255 prefix + 9 digits not starting with 0 -->
-        <div>
-          <label for="payPhone" class="payment-label">
-            <i class="fa-solid fa-phone"></i>
-            Namba ya Simu
-          </label>
-          <div class="phone-input-group">
-            <span class="phone-prefix">+255</span>
-            <input type="text" class="phone-input" id="payPhone" name="phone9" inputmode="numeric"
-              pattern="[1-9][0-9]{8}" minlength="9" maxlength="9" placeholder="Mfano: 712345678" autocomplete="tel"
-              required>
+                <!-- Phone: +255 prefix + 9 digits not starting with 0 -->
+                <div>
+                  <label for="payPhone" class="payment-label">
+                    <i class="fa-solid fa-phone"></i>
+                    Namba ya Simu
+                  </label>
+                  <div class="phone-input-group">
+                    <span class="phone-prefix">+255</span>
+                    <input type="text" class="phone-input" id="payPhone" name="phone9" inputmode="numeric"
+                      pattern="[1-9][0-9]{8}" minlength="9" maxlength="9" placeholder="Mfano: 712345678"
+                      autocomplete="tel" required>
+                  </div>
+                  <div class="payment-invalid-feedback">Weka tarakimu 9 bila kuanza na 0.</div>
+                </div>
+                <!-- Inline feedback area for errors (updated via OOB swap) -->
+                <div id="pay-form-feedback" class="d-none"></div>
+                <button type="submit" class="submit-btn">
+                  <span class="label-text">
+                    Tuma Malipo
+                    <i class="fa-regular fa-paper-plane"></i>
+                  </span>
+                  <!-- HTMX loading indicator: spinner only -->
+                  <span class="htmx-indicator">
+                    <span class="spinner-border spinner-custom-css" role="status" aria-hidden="true"></span>
+                  </span>
+                </button>
+              </form>
+            </div>
           </div>
-          <div class="payment-invalid-feedback">Weka tarakimu 9 bila kuanza na 0.</div>
         </div>
-        <!-- Inline feedback area for errors (updated via OOB swap) -->
-        <div id="pay-form-feedback" class="d-none"></div>
-        <button type="submit" class="submit-btn">
-          <span class="label-text">
-            Tuma Malipo
-            <i class="fa-regular fa-paper-plane"></i>
-          </span>
-          <!-- HTMX loading indicator: spinner only -->
-          <span class="htmx-indicator">
-            <span class="spinner-border spinner-custom-css" role="status" aria-hidden="true"></span>
-          </span>
+        <!-- Modal root: HTMX will inject modal HTML here -->
+        <div id="modal-root"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="fa-regular fa-circle-xmark me-1"></i> Funga
         </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
-<!-- Modal root: HTMX will inject modal HTML here -->
-<div id="modal-root"></div>
 
 
 <script>

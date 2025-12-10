@@ -24,18 +24,26 @@
   <section class="section-card my-3">
     <div class="section-header">
       <div>
-        <h2 class="section-title h4 mb-1">Mikeka Mingine Ya Bure</h2>
+        <h2 class="section-title h4 mb-1">Mikeka Mingine Ya Leo</h2>
         <p class="section-subtitle mb-0">Fuatilia mikeka mingine inayoshinda leo</p>
       </div>
     </div>
     <div class="section-grid columns-3">
+      <div class="card h-100 blog-card" onclick="window.location.href = '/vip/';" style="cursor: pointer;">
+        <img src="/mikeka/vip-tips.webp" class="card-img-top" alt="VIP Tips" />
+        <div class="card-body d-flex flex-column">
+          <h3 class="h5 text-dark">Mikeka ya VIP</h3>
+          <p class="text-muted flex-grow-1">Mikeka ya VIP - Odds 2 hadi 3 kila siku za uhakika</p>
+          <a href="/vip/" class="btn btn-outline-success mt-auto">Fungua Mikeka Hii</a>
+        </div>
+      </div>
       <div class="card h-100 blog-card" onclick="window.location.href = '/over-15/';" style="cursor: pointer;">
         <img src="/mikeka/over15.webp" class="card-img-top" alt="Over 1.5" />
         <div class="card-body d-flex flex-column">
           <h3 class="h5 text-dark">Mikeka ya Over 1.5</h3>
           <p class="text-muted flex-grow-1">Utabiri wa mpira wa miguu Over 1.5 - mechi zenye nafasi kubwa ya kufunga
             mabao mawili au zaidi.</p>
-          <a href="/over-15/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
+          <a href="/over-15/" class="btn btn-outline-success mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
       <div class="card h-100 blog-card" onclick="window.location.href = '/under-over-15-first-half/';"
@@ -45,7 +53,7 @@
           <h3 class="h5 text-dark">Under/Over 1.5 First Half</h3>
           <p class="text-muted flex-grow-1">Utabiri wa magoli kipindi cha kwanza. Juu au Chini ya 1.5! Mikeka ya odds
             kubwa.</p>
-          <a href="/under-over-15-first-half/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
+          <a href="/under-over-15-first-half/" class="btn btn-outline-success mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
       <div class="card h-100 blog-card" onclick="window.location.href = '/both-teams-to-score/';"
@@ -55,7 +63,7 @@
           <h3 class="h5 text-dark">Both Teams to Score (GG)</h3>
           <p class="text-muted flex-grow-1">Mikeka ya GG - Timu zote kufungana. Mikeka ya kila siku yenye odds nzuri kwa
             ushindi mkubwa</p>
-          <a href="/both-teams-to-score/" class="btn btn-outline-accent mt-auto">Fungua Mikeka Hii</a>
+          <a href="/both-teams-to-score/" class="btn btn-outline-success mt-auto">Fungua Mikeka Hii</a>
         </div>
       </div>
     </div>
@@ -81,7 +89,7 @@
           <div class="small text-muted mb-1"><%= new Date(post.pubDate).toLocaleDateString('sv-SE') %></div>
           <h3 class="h6 fw-bold text-dark"><%= post.title %></h3>
           <p class="text-muted flex-grow-1"><%= post.description %></p>
-          <a class="btn btn-outline-accent mt-auto" href="/blog/<%= post.slug %>/">Soma zaidi</a>
+          <a class="btn btn-outline-success mt-auto" href="/blog/<%= post.slug %>/">Soma zaidi</a>
         </div>
       </div>
       <% }) %>

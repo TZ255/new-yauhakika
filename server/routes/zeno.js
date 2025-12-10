@@ -7,8 +7,8 @@ import User from '../models/user.js';
 
 const router = Router();
 
-const WEBHOOK_BASE = process.env.SITE_URL || process.env.DOMAIN || '';
-const webhookUrl = WEBHOOK_BASE ? `${WEBHOOK_BASE.replace(/\/+$/, '')}/api/zenopay-webhook` : '';
+const WEBHOOK_BASE = process.env.DOMAIN;
+const webhookUrl = `https://${WEBHOOK_BASE}/api/zenopay-webhook`;
 const generateOrderId = (phone) => `ORD-${Date.now().toString(36)}-${phone}`;
 const PRICE = { weekly: 8500 };
 
@@ -64,8 +64,8 @@ router.post('/api/pay', async (req, res) => {
       buyer_name: user.name || email.split('@')[0],
       buyer_phone: phone,
       buyer_email: email,
-      amount: PRICE.weekly,
-      webhook_url: webhookUrl || undefined,
+      amount: user.role === 'admin' ? 500 : PRICE.weekly,
+      webhook_url: webhookUrl
     };
 
     const apiResp = await makePayment(payload);
@@ -77,7 +77,7 @@ router.post('/api/pay', async (req, res) => {
       });
     }
 
-    sendTelegramNotification(`💰 ${email} initiated payment for weekly plan via ZenoPay`, false);
+    sendTelegramNotification(`💰 ${email} initiated payment for weekly plan - mikekayauhakika`, true);
 
     return res.render('fragments/payment-initiated', {
       layout: false,
@@ -96,24 +96,26 @@ router.post('/api/zenopay-webhook', async (req, res) => {
     if (!order_id) return res.sendStatus(200);
 
     const record = await PaymentBin.findOne({ orderId: order_id });
-    if (record) {
-      if (payment_status === 'COMPLETED') {
-        record.payment_status = payment_status || record.payment_status;
-        record.reference = reference || record.reference;
-        record.updatedAt = new Date();
-        await record.save();
+    if (!record) return res.sendStatus(200);
 
-        try {
-          await confirmWeeklySubscription(record.email);
-        } catch (e) {
-          console.error('grantSubscription webhook error:', e?.message || e);
-          sendTelegramNotification(`❌ Failed to confirm a paid sub for ${record?.email} - ${record?.meta?.plan}. Please confirm manually`);
-        }
+    if (payment_status === 'COMPLETED') {
+      record.payment_status = payment_status || record.payment_status;
+      record.reference = reference || record.reference;
+      record.updatedAt = new Date();
+      await record.save();
+
+      try {
+        await confirmWeeklySubscription(record.email);
+        sendTelegramNotification(`✅ Confirmed paid sub for ${record?.email} - yaUhakika`, true);
+      } catch (e) {
+        console.error('grantSubscription webhook error:', e?.message || e);
+        sendTelegramNotification(`❌ Failed to confirm a paid sub for ${record?.email} - ${record?.meta?.plan}. Please confirm manually`, true);
       }
     }
     return res.sendStatus(200);
   } catch (error) {
     console.error('WEBHOOK error:', error?.message || error);
+    sendTelegramNotification(`❌ Webhook error: ${error?.message || error}`, true);
     return res.sendStatus(200);
   }
 });
