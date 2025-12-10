@@ -49,7 +49,7 @@
           <%- body %>
         </main>
         <%- include('../partials/footer') %>
-        <% if (activeId !== 'vip') { %>
+        <% if (!['vip', null].includes(activeId)) { %>
          <%- include('../partials/modals/betwinner') %>
         <% } %>
       </div>
