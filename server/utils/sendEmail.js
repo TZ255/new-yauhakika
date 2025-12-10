@@ -79,9 +79,9 @@ export const sendEmail = async (email, subject, html) => {
             console.log(`✅ Email is correct: ${checkEmail.data.email}`)
             sendMailErooMails(email, subject, html)
         } else {
-            console.log(`❌ ${checkEmail.data.email}.... We didnt bother to mail`)
+            console.log(`❌ ${checkEmail?.data?.email}.... We didnt bother to mail`)
         }
     } catch (error) {
-        console.log('Error sending email ' + error?.message)
+        console.log(`❌ Error sending to ${email}: ${error?.message}`, error)
     }
 }
