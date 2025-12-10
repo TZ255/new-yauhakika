@@ -80,7 +80,7 @@ export async function handleRegister(req, res, next) {
     if (!isAllowedEmail(email)) {
       return respondAlert(req, res, {
         id: 'register-alert',
-        message: 'Tunapokea email za Gmail, iCloud, Yahoo au Outlook pekee.',
+        message: 'Email si sahihi. Tafadhali weke email sahihi',
         redirectPath: '/auth/register',
       });
     }
@@ -174,7 +174,7 @@ export async function sendResetCode(req, res, next) {
     if (!isAllowedEmail(email)) {
       return respondAlert(req, res, {
         id: 'reset-request-alert',
-        message: 'Tunapokea email za Gmail, iCloud, Yahoo au Outlook pekee.',
+        message: 'Email si sahihi. Tafadhali weka email sahihi',
         redirectPath: '/auth/reset',
       });
     }
