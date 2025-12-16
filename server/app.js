@@ -9,6 +9,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import flash from 'connect-flash';
+import cors from 'cors';
 import router from './routes/index.js';
 import { connectDB } from './config/db.js';
 import { SITE, NAV_ITEMS } from './config/site.js';
@@ -32,9 +33,11 @@ app.use(expressLayouts);
 app.set('layout', 'layouts/main');
 
 // Security + perf
+app.use(cors());
 app.use(
   helmet({
     contentSecurityPolicy: false,
+    crossOriginResourcePolicy: {policy: 'cross-origin'}
   })
 );
 app.use(compression());
