@@ -67,14 +67,16 @@ router.post('/api/pay', async (req, res) => {
       amount: email === "janjatzblog@gmail.com" ? 500 : PRICE.weekly
     };
 
-    const bkaziServer = "https://baruakazi-production.up.railway.app/payment/process/yauhakika"
+    const bkaziServer = "https://baruakazi-production.up.railway.app/payment/process/uhakika"
     const apiResp = await axios.post(bkaziServer, payload)
 
     if (!apiResp) {
+      console.error('PAY error: No response from payment API');
       return res.render('fragments/payment-error', { layout: false, message: apiResp?.message || 'Imeshindikana kuanzisha malipo. Jaribu tena.' });
     }
 
     if (apiResp && apiResp.data?.success !== true) {
+      console.error('PAY error:', apiResp.data?.message || 'Payment API returned unsuccessful response');
       res.set('HX-Reswap', 'none');
       return res.render('fragments/payment-form-error', { layout: false, message: apiResp.data?.message || 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.' });
     }
