@@ -1,9 +1,11 @@
+import { Router } from 'express';
 import { loadPosts, getPostBySlug, renderMarkdown } from '../utils/blog.js';
 import { pageMeta } from '../utils/meta.js';
 
+const router = Router();
 const PAGE_SIZE = 10;
 
-export async function listBlog(req, res) {
+async function listBlog(req, res) {
   const page = Number(req.params.page || req.query.page || 1);
   const posts = await loadPosts();
   const total = posts.length;
@@ -25,12 +27,15 @@ export async function listBlog(req, res) {
       page,
       totalPages,
       prev: page > 1 ? page - 1 : null,
-      next: page < totalPages ? page + 1 : null,
-    },
+    next: page < totalPages ? page + 1 : null,
+  },
   });
 }
 
-export async function showBlog(req, res, next) {
+router.get('/', listBlog);
+router.get('/page/:page', listBlog);
+
+router.get('/:slug', async (req, res, next) => {
   const { slug } = req.params;
   const post = await getPostBySlug(slug);
   if (!post) return next();
@@ -49,4 +54,6 @@ export async function showBlog(req, res, next) {
     post,
     content: html,
   });
-}
+});
+
+export default router;

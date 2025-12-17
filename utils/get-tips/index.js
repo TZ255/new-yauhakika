@@ -1,7 +1,7 @@
-import bttsModel from '../models/btts.js';
-import fametipsModel from '../models/fametips.js';
-import correctScoreModel from '../models/correctScoreModel.js';
-import vipModel from '../models/vip.js';
+import bttsModel from '../../models/btts.js';
+import fametipsModel from '../../models/fametips.js';
+import correctScoreModel from '../../models/correctScoreModel.js';
+import vipModel from '../../models/vip.js';
 
 const TZ = 'Africa/Nairobi';
 

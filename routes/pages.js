@@ -1,9 +1,12 @@
-import { pageMeta } from '../utils/meta.js';
-import { getBttsTips, getHt15Tips, getMegaTips, getOver15Tips, getVipTips } from './tipsController.js';
+import { Router } from 'express';
 import { loadPosts } from '../utils/blog.js';
+import { pageMeta } from '../utils/meta.js';
 import { enforceVipAccess } from '../utils/vipAccess.js';
+import { getMegaTips, getOver15Tips, getBttsTips, getHt15Tips, getVipTips } from '../utils/get-tips/index.js';
 
-export async function renderHome(req, res) {
+const router = Router();
+
+router.get('/', async (req, res) => {
   const tips = await getMegaTips();
   const latestPosts = (await loadPosts()).slice(0, 3);
   res.render('pages/home', {
@@ -12,9 +15,9 @@ export async function renderHome(req, res) {
     tips,
     latestPosts,
   });
-}
+});
 
-export async function renderOver15(req, res) {
+router.get('/over-15', async (req, res) => {
   const tips = await getOver15Tips();
   res.render('pages/over15', {
     activeId: 'over15',
@@ -27,9 +30,9 @@ export async function renderOver15(req, res) {
     }),
     tips,
   });
-}
+});
 
-export async function renderBtts(req, res) {
+router.get('/both-teams-to-score', async (req, res) => {
   const tips = await getBttsTips();
   res.render('pages/btts', {
     activeId: 'btts',
@@ -41,9 +44,9 @@ export async function renderBtts(req, res) {
     }),
     tips,
   });
-}
+});
 
-export async function renderHt15(req, res) {
+router.get('/under-over-15-first-half', async (req, res) => {
   const tips = await getHt15Tips();
   res.render('pages/ht15', {
     activeId: 'ht15',
@@ -56,9 +59,9 @@ export async function renderHt15(req, res) {
     }),
     tips,
   });
-}
+});
 
-export async function renderVip(req, res) {
+router.get('/vip', async (req, res) => {
   const { user: freshUser, isActive, expired } = await enforceVipAccess(req.user, req);
   const tips = isActive ? await getVipTips() : null;
   if (freshUser) {
@@ -77,25 +80,27 @@ export async function renderVip(req, res) {
     user: freshUser,
     expired,
   });
-}
+});
 
-export function renderAbout(req, res) {
+router.get('/about', (req, res) => {
   res.render('pages/about', {
     activeId: 'about',
     meta: pageMeta({ title: 'Kuhusu Sisi | Mikeka ya Uhakika', path: '/about' }),
   });
-}
+});
 
-export function renderServices(req, res) {
+router.get('/services', (req, res) => {
   res.render('pages/services', {
     activeId: 'services',
     meta: pageMeta({ title: 'Huduma Zetu | Mikeka ya Uhakika', path: '/services' }),
   });
-}
+});
 
-export function renderProjects(req, res) {
+router.get('/projects', (req, res) => {
   res.render('pages/projects', {
     activeId: 'projects',
     meta: pageMeta({ title: 'Miradi Yetu | Mikeka ya Uhakika', path: '/projects' }),
   });
-}
+});
+
+export default router;

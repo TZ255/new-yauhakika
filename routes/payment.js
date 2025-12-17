@@ -64,7 +64,7 @@ router.post('/api/pay', async (req, res) => {
       orderRef,
       user: { userId: user._id, email: user.email, name: user.name || user.email.split('@')[0] },
       phoneNumber: phone,
-      amount: email === "janjatzblog@gmail.com" ? 500 : PRICE.weekly
+      amount: (email === "janjatzblog@gmail.com" || user.role === 'admin') ? 500 : PRICE.weekly
     };
 
     const bkaziServer = "https://baruakazi-production.up.railway.app/payment/process/uhakika"

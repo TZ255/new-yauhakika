@@ -7,7 +7,7 @@ import { slugify } from './slugify.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const BLOG_DIR = path.join(__dirname, '../../content/blog');
+const BLOG_DIR = path.join(__dirname, '../content/blog');
 
 export async function loadPosts() {
   const entries = await fs.readdir(BLOG_DIR);

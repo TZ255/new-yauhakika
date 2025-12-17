@@ -1,7 +1,10 @@
+import { Router } from 'express';
 import { SITE, STATIC_PAGES } from '../config/site.js';
 import { loadPosts } from '../utils/blog.js';
 
-export async function renderRss(req, res) {
+const router = Router();
+
+router.get('/rss.xml', async (req, res) => {
   const posts = (await loadPosts()).slice(0, 30);
   const items = posts
     .map(
@@ -28,15 +31,12 @@ export async function renderRss(req, res) {
 
   res.set('Content-Type', 'application/xml');
   res.send(xml);
-}
+});
 
-export async function renderSitemap(req, res) {
+router.get('/sitemap.xml', async (req, res) => {
   const posts = await loadPosts();
 
-  const urls = [
-    ...STATIC_PAGES,
-    ...posts.map((p) => `/blog/${p.slug}/`),
-  ];
+  const urls = [...STATIC_PAGES, ...posts.map((p) => `/blog/${p.slug}/`)];
 
   const body = urls
     .map(
@@ -54,4 +54,6 @@ export async function renderSitemap(req, res) {
 
   res.set('Content-Type', 'application/xml');
   res.send(xml);
-}
+});
+
+export default router;

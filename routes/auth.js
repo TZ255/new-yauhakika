@@ -1,9 +1,11 @@
+import { Router } from 'express';
 import passport from 'passport';
 import User from '../models/user.js';
 import { pageMeta } from '../utils/meta.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { hashPassword } from '../utils/password.js';
 
+const router = Router();
 const ALLOWED_DOMAINS = ['gmail.com', 'icloud.com', 'yahoo.com', 'outlook.com'];
 const RESET_TTL_HOURS = 4;
 
@@ -29,7 +31,7 @@ function respondAlert(req, res, { id, type = 'danger', message = '', status = 20
   return res.redirect(target);
 }
 
-export function showLogin(req, res) {
+router.get('/login', (req, res) => {
   if (req.isAuthenticated?.() && req.user) {
     return res.redirect('/vip');
   }
@@ -37,9 +39,9 @@ export function showLogin(req, res) {
     activeId: null,
     meta: pageMeta({ title: 'Ingia | Mikeka ya Uhakika', path: '/auth/login' }),
   });
-}
+});
 
-export function showRegister(req, res) {
+router.get('/register', (req, res) => {
   if (req.isAuthenticated?.() && req.user) {
     return res.redirect('/vip');
   }
@@ -47,16 +49,16 @@ export function showRegister(req, res) {
     activeId: null,
     meta: pageMeta({ title: 'Jisajili | Mikeka ya Uhakika', path: '/auth/register' }),
   });
-}
+});
 
-export function showReset(req, res) {
+router.get('/reset', (req, res) => {
   res.render('pages/reset', {
     activeId: null,
     meta: pageMeta({ title: 'Weka Upya Nenosiri', path: '/auth/reset' }),
   });
-}
+});
 
-export async function handleRegister(req, res, next) {
+router.post('/register', async (req, res, next) => {
   try {
     const name = (req.body.name || '').trim();
     const emailRaw = req.body.email || '';
@@ -80,7 +82,7 @@ export async function handleRegister(req, res, next) {
     if (!isAllowedEmail(email)) {
       return respondAlert(req, res, {
         id: 'register-alert',
-        message: 'Email si sahihi. Tafadhali weke email sahihi',
+        message: 'Email si sahihi. Tafadhali weka email sahihi',
         redirectPath: '/auth/register',
       });
     }
@@ -114,9 +116,9 @@ export async function handleRegister(req, res, next) {
     logError('register', err);
     return next(err);
   }
-}
+});
 
-export function handleLogin(req, res, next) {
+router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       logError('login-auth', err);
@@ -147,9 +149,9 @@ export function handleLogin(req, res, next) {
       return res.redirect('/vip');
     });
   })(req, res, next);
-}
+});
 
-export function handleLogout(req, res, next) {
+router.post('/logout', (req, res, next) => {
   req.logout?.((err) => {
     if (err) return next(err);
     if (req.headers['hx-request']) {
@@ -159,9 +161,9 @@ export function handleLogout(req, res, next) {
     if (req.flash) req.flash('success', 'Umetoka kikamilifu.');
     return res.redirect('/auth/login');
   });
-}
+});
 
-export async function sendResetCode(req, res, next) {
+router.post('/reset/request', async (req, res, next) => {
   try {
     const email = normalizeEmail(req.body.email || '');
     if (!email) {
@@ -227,9 +229,9 @@ export async function sendResetCode(req, res, next) {
     logError('reset-send', err);
     return next(err);
   }
-}
+});
 
-export async function confirmReset(req, res, next) {
+router.post('/reset/confirm', async (req, res, next) => {
   try {
     const email = normalizeEmail(req.body.email || '');
     const code = (req.body.code || '').trim();
@@ -283,4 +285,6 @@ export async function confirmReset(req, res, next) {
     logError('reset-confirm', err);
     return next(err);
   }
-}
+});
+
+export default router;
