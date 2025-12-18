@@ -16,88 +16,113 @@
     </div>
 
     <% if (expired) { %>
-      <div class="alert alert-warning mb-3">
-        Huwezi kuona mikeka ya VIP. Malipo yako yamekwisha. Tafadhali lipia ili kuendelea kufurahia mikeka ya VIP.
-      </div>
+    <div class="alert alert-warning mb-3">
+      Huwezi kuona mikeka ya VIP. Malipo yako yamekwisha. Tafadhali lipia ili kuendelea kufurahia mikeka ya VIP.
+    </div>
     <% } %>
 
     <% if (user) { %>
-      <div class="row g-3 align-items-stretch">
-        <div class="col-lg-7">
-          <div class="h-100 p-4 rounded-3 border position-relative overflow-hidden" style="background: linear-gradient(135deg, #0d6efd0d, #0d6efd18);">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <div>
-                <div class="fw-bold text-inverse fs-5"><%= user.name %></div>
-                <div class="small text-muted"><i class="fa-regular fa-envelope me-1"></i><%= user.email %></div>
-              </div>
-              <form action="/auth/logout" method="post" class="m-0">
-                <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
-              </form>
+    <div class="row g-3 align-items-stretch">
+      <div class="col-lg-7">
+        <div class="h-100 p-4 rounded-3 border position-relative overflow-hidden"
+          style="background: linear-gradient(135deg, #0d6efd0d, #0d6efd18);">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <div class="fw-bold text-inverse fs-5"><%= user.name %></div>
             </div>
-            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-              <span class="badge <%= user.isPaid ? 'text-bg-success' : 'text-bg-secondary' %> px-3 py-2">
-                <%= user.isPaid ? 'VIP USER' : 'FREE USER' %>
-              </span>
+            <form action="/auth/logout" method="post" class="m-0">
+              <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+            </form>
+          </div>
+          <div class="small text-muted my-2"><i class="fa-regular fa-envelope me-1"></i><%= user.email %></div>
+          <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+            <span class="badge <%= user.isPaid ? 'text-bg-warning' : 'text-bg-danger' %> px-3 py-2">
+              <%= user.isPaid ? 'VIP USER — UMELIPIA' : 'HUJALIPIA' %>
+            </span>
+          </div>
+          <% if (isActive) { %>
+           <div class="row text-center g-2">
+            <div class="col-6">
+              <div class="small text-muted">Umelipa</div>
+              <div class="fw-semibold small"><%= formatSwDate(paidOn) %></div>
             </div>
-            <div class="row text-center g-2">
-              <div class="col-6">
-                <div class="small text-muted">Umelipa</div>
-                <div class="fw-semibold small"><%= formatSwDate(paidOn) %></div>
-              </div>
-              <div class="col-6">
-                <div class="small text-muted">Inaisha</div>
-                <div class="fw-semibold small"><%= formatSwDate(expiresAt) %></div>
-              </div>
+            <div class="col-6">
+              <div class="small text-muted">Inaisha</div>
+              <div class="fw-semibold small"><%= formatSwDate(expiresAt) %></div>
             </div>
           </div>
+          <% } %>
         </div>
-        <div class="col-lg-5">
-          <div class="h-100 p-4 rounded-3 border bg-white">
-            <div class="fw-semibold text-inverse mb-2">Faida za VIP</div>
-            <ul class="list-unstyled mb-3 small">
-              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-star text-warning"></i> Odds 2 - 3 za uhakika kila siku</li>
-              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-shield-halved text-success"></i> Utabiri uliopitiwa na wachambuzi</li>
-              <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-clock text-primary"></i> Msaada wa haraka 24/7</li>
-            </ul>
-            <% if (!isActive) { %>
-              <div class="alert alert-info small mb-3 text-center">
-                <span class="d-block">Lipia sasa kufungua mikeka ya VIP</span>
-                <span class="fw-bold fs-5 d-block">8,500 TZS / wiki</span>
-              </div>
-              <button class="btn btn-success w-100 text-light py-3 rounded-5" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                <i class="fa-solid fa-wallet fa-flip me-1"  style="--fa-animation-duration: 3s;"></i> 
-                LIPIA SASA
-              </button>
-            <% } else { %>
-              <div class="alert alert-success small mb-0">Uanachama wako uko hai hadi <%= formatSwDate(expiresAt) %>. Furahia mikeka ya VIP hapa chini.</div>
-            <% } %>
+      </div>
+      <div class="col-lg-5">
+        <% if (!isActive) { %>
+         <div class="h-100 p-4 rounded-3 border bg-white">
+          <div class="fw-semibold text-inverse mb-2">Faida za VIP</div>
+          <ul class="list-unstyled mb-3 small">
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-star text-warning"></i> Odds 2 - 3 za
+              uhakika kila siku</li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-shield-halved text-success"></i>
+              Utabiri uliopitiwa na wachambuzi</li>
+            <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-sack-dollar text-primary"></i> Ushindi wa 90%+</li>
+          </ul>
+          <div class="alert alert-info small mb-3 text-center">
+            <span class="d-block">Lipia kufungua mikeka ya VIP</span>
+            <span class="fw-bold fs-5 d-block">8,500 TZS / wiki</span>
           </div>
+          <button class="btn btn-success w-100 text-light py-3 rounded-5" data-bs-toggle="modal"
+            data-bs-target="#paymentModal">
+            <i class="fa-solid fa-wallet fa-flip me-1" style="--fa-animation-duration: 3s;"></i>
+            LIPIA SASA
+          </button>
         </div>
+        <% } %>
       </div>
-    <% } else { %>
-      <div class="alert alert-warning d-flex flex-column justify-content-between align-items-center">
-        <div>
-          <div class="fw-semibold">Jisajili au Ingia ili kupata mikeka ya VIP</div>
-          <div class="small text-muted">Iwapo huna account, jisajili ili kuendelea</div>
-        </div>
-        <div class="d-flex gap-2 mt-3">
-          <a class="btn btn-outline-secondary px-3" href="/auth/register">Register</a>
-          <a class="btn btn-success px-3" href="/auth/login">Login</a>
-        </div>
+    </div>
+    <% } %>
+
+    <% if (!user) { %>
+     <div class="alert alert-warning d-flex flex-column justify-content-between align-items-center">
+      <div>
+        <div class="fw-semibold">Jisajili au Ingia ili kupata mikeka ya VIP</div>
+        <div class="small text-muted">Iwapo huna account, jisajili ili kuendelea</div>
       </div>
+      <div class="d-flex gap-2 mt-3">
+        <a class="btn btn-outline-secondary px-3" href="/auth/register">Register</a>
+        <a class="btn btn-success px-3" href="/auth/login">Login</a>
+      </div>
+    </div>
     <% } %>
   </section>
 
   <% if (isActive && tips) { %>
-    <section class="my-3">
-      <%- include('../blocks/tips-panel', { heading: 'Mikeka ya VIP', subheading: 'Tips zenye ubora wa juu kila siku', category: 'vip', tips }) %>
-    </section>
-  <% } else if (user && !isActive) { %>
+  <section class="my-3">
+    <%- include('../blocks/tips-panel', { heading: 'Mikeka ya VIP', subheading: 'Tips zenye ubora wa juu kila siku', category: 'vip', tips }) %>
+  </section>
+   <% } %>
+  
+   <% if (user && !isActive) { %>
     <section class="section-card my-3 text-center">
-      <div class="mb-2 fw-semibold text-inverse">Tips za VIP zitaonekana hapa punde tu utakapolipia.</div>
-    </section>
-  <% } %>
+    <div class="mb-2 fw-semibold text-inverse">Tips za VIP zitaonekana hapa punde tu utakapolipia.</div>
+  </section>
+   <% } %>
 </div>
 
 
 <%- include('../partials/modals/payment-form.ejs'); %>
+
+<script>
+  //prevent body scroll when modal is open
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('paymentModal');
+
+    modal.addEventListener('shown.bs.modal', function () {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '0';
+    });
+
+    modal.addEventListener('hidden.bs.modal', function () {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    });
+  });
+</script>
