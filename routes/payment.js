@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import PaymentBin from '../models/paymentBin.js';
 import { sendTelegramNotification } from '../utils/sendTelegramNotifications.js';
 import { confirmWeeklySubscription } from '../utils/subscription.js';
@@ -103,7 +104,7 @@ router.post('/api/pay', async (req, res) => {
     const orderRef = generateOrderId();
     const phoneWithPlus = `+${phone}`;
 
-    await PaymentBin.create({
+    const paymentEntry = await PaymentBin.create({
       email,
       phone: phoneWithPlus,
       orderId: orderRef,
@@ -112,17 +113,53 @@ router.post('/api/pay', async (req, res) => {
       meta: { network: networkKey, brand },
     });
 
-    return res.render(`fragments/lipa-instructions/${network.template}`, {
+    return res.render('fragments/payment-confirm', {
       layout: false,
       phone: phoneWithPlus,
-      orderId: orderRef,
-      reference: orderRef,
+      networkLabel: network.label,
+      networkKey,
+      paymentId: paymentEntry._id,
       amount: PRICE.weekly,
-      network,
     });
   } catch (error) {
     console.error('PAY error:', error?.message || error);
     return res.render('fragments/payment-error', { layout: false, message: 'Hitilafu imetokea. Tafadhali jaribu tena.' });
+  }
+});
+
+router.get('/pay/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params || {};
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next();
+    }
+
+    const user = req.user ? await User.findById(req.user._id) : null;
+    if (!user) {
+      if (req.flash) req.flash('danger', 'Tafadhali login upya kuendelea');
+      return res.redirect('/auth/login');
+    }
+
+    const paymentEntry = await PaymentBin.findOne({ _id: id, email: user.email, payment_status: 'PENDING' }).lean();
+    if (!paymentEntry) {
+      return next();
+    }
+
+    const networkKey = paymentEntry.meta?.network || 'default';
+    const network = NETWORKS[networkKey] || NETWORKS.default;
+
+    return res.render('pages/pay-instructions', {
+      layout: false,
+      phone: paymentEntry.phone,
+      orderId: paymentEntry.orderId,
+      reference: paymentEntry.reference || paymentEntry.orderId,
+      amount: PRICE.weekly,
+      network,
+      paymentId: paymentEntry._id,
+    });
+  } catch (error) {
+    console.error('PAY instructions error:', error?.message || error);
+    return res.status(500).render('fragments/payment-error', { layout: false, message: 'Hitilafu imetokea. Jaribu tena.' });
   }
 });
 

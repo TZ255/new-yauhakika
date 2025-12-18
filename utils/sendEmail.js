@@ -24,7 +24,7 @@ const sendWithResend = async (recipient, subject, html) => {
         const data = await resend.emails.send({
             from: 'YA UHAKIKA <info@info.mikekayauhakika.com>',
             to: [recipient],
-            replyTo: 'info@mikekayauhakika.com',
+            replyTo: 'uhakikatips@gmail.com',
             subject,
             html
         });
@@ -44,7 +44,7 @@ const sendMailErooMails = async (recipient, subject, html) => {
 
         data.append('from', 'YA UHAKIKA <info@info.mikekayauhakika.com>');
         data.append('to', `<${recipient}>`);
-        data.append('reply_to', '<info@mikekayauhakika.com>')
+        data.append('reply_to', '<uhakikatips@gmail.com>')
         data.append('subject', subject);
         data.append('html', html);
 
