@@ -293,6 +293,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><i class="fa-solid fa-wallet me-1"></i> Malipo ya VIP</h5>
+        <button type="button" class="btn-close" onclick="window.location.reload()" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div id="payment-area">
@@ -302,6 +303,7 @@
               <div
                 class="networks d-flex flex-nowrap align-items-center justify-content-center gap-2 bg-light rounded-3 mt-3 px-4 mx-auto"
                 style="width: fit-content; height: 50px; overflow: hidden;">
+                <img src="/images/mpesa.png" style="width: 36px; height: 36px; object-fit: cover;" alt="Vodacom M-Pesa">
                 <img src="/images/mixx.png" style="width: 36px; height: 36px; object-fit: cover;" alt="Mixx by Yas">
                 <img src="/images/airtel.png" style="width: 36px; height: 36px; object-fit: cover;" alt="Airtel Money">
                 <img src="/images/halopesa.png" style="width: 36px; height: 36px; object-fit: cover;" alt="Halopesa">
@@ -323,10 +325,6 @@
                       pattern="[1-9][0-9]{8}" minlength="9" maxlength="9" placeholder="Mfano: 712345678"
                       autocomplete="tel" required>
                   </div>
-                  <div class="small text-muted mt-0 mb-1 ps-1">
-                    <i class="fa-solid fa-circle-info"></i>
-                    Tigo, Airtel au Halotel.
-                  </div>
                 </div>
                 <!-- Inline feedback area for errors (updated via OOB swap) -->
                 <div id="pay-form-feedback" class="d-none"></div>
@@ -340,17 +338,15 @@
                     <span class="spinner-border spinner-custom-css" role="status" aria-hidden="true"></span>
                   </span>
                 </button>
+                <div class="text-center small text-muted mt-2 px-3">
+                  Utapata maelekezo mafupi ya kulipia. Hakikisha umeweka namba ya simu sahihi na ina pesa za kutosha kukamilisha malipo
+                </div>
               </form>
             </div>
           </div>
         </div>
         <!-- Modal root: HTMX will inject modal HTML here -->
         <div id="modal-root"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" onclick="window.location.reload()">
-          <i class="fa-regular fa-circle-xmark me-1"></i> Funga
-        </button>
       </div>
     </div>
   </div>

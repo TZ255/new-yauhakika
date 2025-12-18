@@ -1,0 +1,16 @@
+<div class="p-3">
+  <%- include('./payinfo.ejs'); %>
+
+  <div class="mb-3">
+    <ol class="list-group list-group-numbered small shadow-sm">
+      <li class="list-group-item">Piga <strong>*150*60#</strong>, nenda Lipia Bili</li>
+      <li class="list-group-item">Chagua Lipia Bili</li>
+      <li class="list-group-item">Chagua Lipa kwa Simu</li>
+      <li class="list-group-item">Chagua <strong>Mixx by Yas</strong></li>
+      <li class="list-group-item">Weka lipa namba <strong class="fs-6"><code><%= network?.payCode %></code></strong></li>
+      <li class="list-group-item">Kiasi <strong>TSh. <%= amount %></strong></li>
+    </ol>
+  </div>
+
+  <%- include('./paynote.ejs'); %>
+</div>
