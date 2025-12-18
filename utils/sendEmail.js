@@ -22,7 +22,7 @@ const sendWithResend = async (recipient, subject, html) => {
     const resend = new Resend(process.env.RESEND_KEY);
     try {
         const data = await resend.emails.send({
-            from: 'YA UHAKIKA <info@info.mikekayauhakika.com>',
+            from: 'Uhakika Tips <info@info.mikekayauhakika.com>',
             to: [recipient],
             replyTo: 'uhakikatips@gmail.com',
             subject,
@@ -42,7 +42,7 @@ const sendMailErooMails = async (recipient, subject, html) => {
 
         let data = new FormData();
 
-        data.append('from', 'YA UHAKIKA <info@info.mikekayauhakika.com>');
+        data.append('from', 'Uhakika Tips <info@info.mikekayauhakika.com>');
         data.append('to', `<${recipient}>`);
         data.append('reply_to', '<uhakikatips@gmail.com>')
         data.append('subject', subject);

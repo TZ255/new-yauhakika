@@ -60,12 +60,13 @@
               <li class="d-flex align-items-center gap-2 mb-2"><i class="fa-solid fa-clock text-primary"></i> Msaada wa haraka 24/7</li>
             </ul>
             <% if (!isActive) { %>
-              <div class="alert alert-info small mb-3">
-                Lipia sasa ili kufungua mikeka ya VIP <br> <span class="fw-bold">8,500 TZS / wiki</span>
+              <div class="alert alert-info small mb-3 text-center">
+                <span class="d-block">Lipia sasa kufungua mikeka ya VIP</span>
+                <span class="fw-bold fs-5 d-block">8,500 TZS / wiki</span>
               </div>
-              <div class="small text-muted text-center mb-2">Bonyeza hapa chini kulipia. Account yako itawezeshwa moja kwa moja baada ya malipo.</div>
-              <button class="btn btn-success w-100 text-light" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                <i class="fa-solid fa-wallet me-1"></i> LIPIA SASA
+              <button class="btn btn-success w-100 text-light py-3 rounded-5" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                <i class="fa-solid fa-wallet fa-flip me-1"  style="--fa-animation-duration: 3s;"></i> 
+                LIPIA SASA
               </button>
             <% } else { %>
               <div class="alert alert-success small mb-0">Uanachama wako uko hai hadi <%= formatSwDate(expiresAt) %>. Furahia mikeka ya VIP hapa chini.</div>
