@@ -14,7 +14,11 @@ import cors from 'cors';
 import pageRoutes from './routes/pages.js';
 import blogRoutes from './routes/blog.js';
 import authRoutes from './routes/auth.js';
-import paymentRoutes from './routes/payment.js';
+
+//Only use one payment route file at a time to avoid conflicts
+import paymentLipaNambaRoutes from './routes/payment-lipanamba.js';
+import paymentRoutes from './routes/payment-clickpesa.js';
+
 import seoRoutes from './routes/index.js';
 import { connectDB } from './config/db.js';
 import { SITE, NAV_ITEMS } from './config/site.js';

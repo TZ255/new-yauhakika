@@ -80,6 +80,7 @@ router.get('/vip', async (req, res) => {
     tips,
     user: freshUser,
     expired,
+    extraStyles: '/css/payment-form-style.css',
   });
 });
 
