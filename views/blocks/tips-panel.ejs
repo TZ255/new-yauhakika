@@ -39,7 +39,7 @@
           role="tabpanel"
           aria-labelledby="tab-<%= category %>-<%= key %>-tab"
         >
-          <%- include('../partials/tip-table-body', { tips: tips[key] || [] }) %>
+          <%- include('../partials/tip-table-body', { tips: tips[key] || [], category }) %>
         </div>
       <% }) %>
     </div>

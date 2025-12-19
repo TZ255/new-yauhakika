@@ -15,7 +15,7 @@
       <% } %>
     </div>
     <div class="tip-cell pick text-center">
-      <span class="pill"><%= tip.prediction %></span>
+      <span class="pill <%= typeof category !== undefined && category === 'vip' ? 'pill-vip' : '' %>"><%= tip.prediction %></span>
     </div>
   </div>
 <% }) %>

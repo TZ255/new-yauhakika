@@ -299,8 +299,15 @@ body.sidebar-open .sidebar {
   font-weight: 700;
   letter-spacing: 0.5px;
   border: 1px solid rgba(5, 150, 105, 0.25);
-  min-width: 50%;
+  min-width: 150px;
   text-align: center;
+}
+
+.pill.pill-vip {
+  background: linear-gradient(90deg, var(--premium), #f8b84f);
+  color: #0b1b2f;
+  box-shadow: 0 0 8px rgba(217, 119, 6, 0.35);
+  border: none;
 }
 
 .pill-muted {
