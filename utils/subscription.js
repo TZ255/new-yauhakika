@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import { sendEmail } from './sendEmail.js';
+import { sendNormalSMS } from './sendSMS.js';
 
 const DAYS_7 = 1000 * 60 * 60 * 24 * 7;
 const TZ = 'Africa/Nairobi';
@@ -17,7 +18,7 @@ function formatDate(date) {
   return dateFormatter.format(date);
 }
 
-export async function confirmWeeklySubscription(email) {
+export async function confirmWeeklySubscription(email, phone = null) {
   if (!email) return null;
   const user = await User.findOne({ email });
   if (!user) return null;
@@ -49,11 +50,14 @@ export async function confirmWeeklySubscription(email) {
     <p>Ingia hapa kuona mikeka ya VIP: <a href="${vipUrl}">${vipUrl}</a></p>
     <p>Asante kwa kuchagua Mikeka ya Uhakika. Ushindi mwema!</p>
   `;
+  const sms_text = `Malipo yako ya Mikeka ya Uhakika - VIP Tips ya wiki moja yamethibitishwa kikamilifu hadi ${formatDate(expiresAt)}.\n\nFurahia mikeka yetu ya VIP kila siku!\nhttps://mikekayauhakika.com/vip\n\nAsante!`
 
-  try {
-    await sendEmail(user.email, subject, html);
-  } catch (err) {
-    console.error('[subscription] email send failed:', err?.message || err);
+  //send email, error is handled inside sendEmail
+  sendEmail(user.email, subject, html);
+
+  //send SMS if phone is provided, error is handled inside sendNormalSMS
+  if (phone) {
+    sendNormalSMS(phone, sms_text);
   }
 
   return user;

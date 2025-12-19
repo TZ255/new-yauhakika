@@ -5,6 +5,7 @@ import { sendTelegramNotification } from '../utils/sendTelegramNotifications.js'
 import { confirmWeeklySubscription } from '../utils/subscription.js';
 import User from '../models/user.js';
 import { isValidPhoneNumber, getPhoneNumberDetails } from 'tanzanian-phone-validator';
+import { sendNormalSMS } from '../utils/sendSMS.js';
 
 const router = Router();
 
@@ -178,7 +179,7 @@ router.post('/api/payment-webhook', async (req, res) => {
           return res.sendStatus(404).json({ success: false, message: 'Payment entry not found' });
         }
 
-        await confirmWeeklySubscription(paymentEntry.email);
+        await confirmWeeklySubscription(paymentEntry.email, phone);
         paymentEntry.payment_status = 'COMPLETED';
         await paymentEntry.save();
         sendTelegramNotification(`✅ Confirmed paid sub for ${paymentEntry.email} - yaUhakika`, true);
