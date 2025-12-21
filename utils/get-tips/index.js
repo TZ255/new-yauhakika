@@ -1,7 +1,7 @@
-import bttsModel from '../../models/btts.js';
 import fametipsModel from '../../models/fametips.js';
 import correctScoreModel from '../../models/correctScoreModel.js';
 import vipModel from '../../models/vip.js';
+import MikekaTipsModel from '../../models/mikeka-tips.js';
 
 const TZ = 'Africa/Nairobi';
 
@@ -33,7 +33,9 @@ function normalizePrediction(prediction) {
     case 'DRAW':
       return 'X';
     case 'YES':
-      return 'GG';
+      return 'BTTS: Yes';
+    case 'NO':
+      return 'BTTS: No';
     default:
       return prediction;
   }
@@ -92,18 +94,26 @@ export async function getOver15Tips() {
 
 export async function getBttsTips() {
   const { today, yesterday, tomorrow } = dateStrings();
-  const docs = await bttsModel
-    .find({ date: { $in: [today, yesterday, tomorrow] } })
+  const yymmdd_today = today.split('/').reverse().join('-');
+  const yymmdd_yesterday = yesterday.split('/').reverse().join('-');
+  const yymmdd_tomorrow = tomorrow.split('/').reverse().join('-');
+
+  const days = [yymmdd_today, yymmdd_yesterday, yymmdd_tomorrow];
+  const bttsScores = ['1:3', '2:3', '2:2', '3:2', '1:4', '2:4', '4:2', '4:3']
+  const bttsNo = ["0:0", "1:0"]
+
+  const docs = await MikekaTipsModel
+    .find({ date: { $in: days }, score: { $in: [...bttsScores, ...bttsNo] } })
     .sort('time')
     .lean()
     .cache(600);
 
   const buckets = emptyBuckets();
   docs.forEach((doc) => {
-    const tip = mapTip(doc, doc.bet);
-    if (doc.date === today) buckets.leo.push(tip);
-    if (doc.date === yesterday) buckets.jana.push(tip);
-    if (doc.date === tomorrow) buckets.kesho.push(tip);
+    const tip = mapTip(doc, bttsScores.includes(doc.score) ? 'BTTS: Yes' : 'BTTS: No');
+    if (doc.date === yymmdd_today) buckets.leo.push(tip);
+    if (doc.date === yymmdd_yesterday) buckets.jana.push(tip);
+    if (doc.date === yymmdd_tomorrow) buckets.kesho.push(tip);
   });
 
   return buckets;
