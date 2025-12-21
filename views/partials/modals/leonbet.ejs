@@ -38,7 +38,7 @@
       clearTimeout(showTimer);
       showTimer = setTimeout(() => leonbetModal.show(), delay);
     };
-    scheduleShow(5000);
+    scheduleShow(15000);
     modalElement.addEventListener('hidden.bs.modal', () => {
       scheduleShow(30000);
     });
