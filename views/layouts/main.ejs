@@ -67,7 +67,7 @@
       </main>
       <%- include('../partials/footer') %>
       <% if (!['vip', null].includes(activeId)) { %>
-      <%- include('../partials/modals/betwinner') %>
+      <%- include('../partials/modals/leonbet') %>
       <% } %>
     </div>
   </div>
@@ -79,7 +79,7 @@
   <script src="/js/auth-forms.js"></script>
   <script>
     window.OpenAff = function (slug) {
-      const url = `https://bet-link.top/${slug}/register`;
+      const url = `/goto/${slug}`;
       window.open(url, '_blank');
     };
   </script>

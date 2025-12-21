@@ -56,4 +56,16 @@ router.get('/sitemap.xml', async (req, res) => {
   res.send(xml);
 });
 
+router.get('/goto/:slug', (req, res) => {
+  const affiliates = {
+    leonbet: `https://k56thc2itt.com/?serial=44835&creative_id=1061&anid=`,
+    betwinner: `https://bw-prm.com/afcon-2025-lite/?p=%2Fregistration%2F&id=29lf`
+  };
+  
+  const { slug } = req.params;
+  const url = affiliates[slug] || `https://bet-link.top/${slug}/register`;
+  
+  res.redirect(url);
+});
+
 export default router;
