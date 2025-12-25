@@ -14,7 +14,14 @@
 
   <title><%= meta?.title || site.name %></title>
   <link rel="canonical" href="<%= canonicalUrl %>" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Mikeka ya Uhakika" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="<%= meta?.title || site.name %>" />
@@ -49,7 +56,7 @@
 
   <!-- htmx -->
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
-  
+
   <!-- Extra Styles -->
   <% const extra = typeof extraStyles !== 'undefined' ? (Array.isArray(extraStyles) ? extraStyles : [extraStyles]) : []; %>
   <% extra.forEach((href) => { %>
