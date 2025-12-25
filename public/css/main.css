@@ -372,7 +372,7 @@ body.sidebar-open .sidebar {
 
 .day-toggle .nav-link.active {
   background: var(--accent);
-  color: #0b1b2f;
+  color: #ffffff !important;
   font-weight: 700;
 }
 
