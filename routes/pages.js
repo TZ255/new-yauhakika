@@ -10,6 +10,7 @@ const router = Router();
 router.get('/', async (req, res) => {
   const tips = await getMegaTips();
   const latestPosts = (await loadPosts()).slice(0, 3);
+  res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/home', {
     activeId: 'home',
     meta: pageMeta({ title: 'Mikeka ya Uhakika | Pata Mikeka ya Bure Kila Siku', path: '/', image: '/social_img.webp' }),
@@ -20,6 +21,7 @@ router.get('/', async (req, res) => {
 
 router.get('/over-15', async (req, res) => {
   const tips = await getOver15Tips();
+  res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/over15', {
     activeId: 'over15',
     meta: pageMeta({
@@ -35,6 +37,7 @@ router.get('/over-15', async (req, res) => {
 
 router.get('/both-teams-to-score', async (req, res) => {
   const tips = await getBttsTips();
+  res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/btts', {
     activeId: 'btts',
     meta: pageMeta({
@@ -49,6 +52,7 @@ router.get('/both-teams-to-score', async (req, res) => {
 
 router.get('/under-over-15-first-half', async (req, res) => {
   const tips = await getHt15Tips();
+  res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/ht15', {
     activeId: 'ht15',
     meta: pageMeta({
