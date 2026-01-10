@@ -3,7 +3,7 @@ import { loadPosts } from '../utils/blog.js';
 import { pageMeta } from '../utils/meta.js';
 import { enforceVipAccess } from '../utils/vipAccess.js';
 import { getMegaTips, getOver15Tips, getBttsTips, getHt15Tips, getVipTips } from '../utils/get-tips/index.js';
-import { sendNormalSMS } from '../utils/sendSMS.js';
+import { sendNEXTSMS, sendNormalSMS } from '../utils/sendSMS.js';
 
 const router = Router();
 
@@ -111,12 +111,11 @@ router.get('/projects', (req, res) => {
 
 router.get('/api/testing', async (req, res) => {
   try {
-    //await sendNormalSMS('+255757259678', 'This is a test message from UhakikaTips API.');
-    return res.json({ success: true, message: 'API is working fine!' });
+    sendNEXTSMS("255754920480", "Kwa msaada wowote tembelea website yetu baruakazi.com")
+    res.end()
   } catch (error) {
-    console.error('API testing error:', error);
-    return res.status(500).json({ success: false, message: 'API testing failed', error: error.message });
+    console.log(error)
   }
-});
+})
 
 export default router;

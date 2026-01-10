@@ -1,6 +1,6 @@
 import User from '../models/user.js';
 import { sendEmail } from './sendEmail.js';
-import { sendNormalSMS } from './sendSMS.js';
+import { sendNEXTSMS, sendNormalSMS } from './sendSMS.js';
 
 const DAYS_7 = 1000 * 60 * 60 * 24 * 7;
 const TZ = 'Africa/Nairobi';
@@ -57,7 +57,8 @@ export async function confirmWeeklySubscription(email, phone = null) {
 
   //send SMS if phone is provided, error is handled inside sendNormalSMS
   if (phone) {
-    sendNormalSMS(phone, sms_text);
+    // sendNormalSMS(phone, sms_text);
+    sendNEXTSMS(phone, sms_text)
   }
 
   return user;
