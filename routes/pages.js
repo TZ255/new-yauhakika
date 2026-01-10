@@ -111,7 +111,6 @@ router.get('/projects', (req, res) => {
 
 router.get('/api/testing', async (req, res) => {
   try {
-    sendNEXTSMS("255754920480", "Kwa msaada wowote tembelea website yetu baruakazi.com")
     res.end()
   } catch (error) {
     console.log(error)
