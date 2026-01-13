@@ -29,6 +29,7 @@ export async function confirmWeeklySubscription(email, phone = null) {
   const expiresAt = new Date(base.getTime() + DAYS_7);
 
   user.isPaid = true;
+  user.phone = phone;
   user.payment = {
     paidOn: now,
     expiresAt,
