@@ -91,7 +91,7 @@ router.post('/register', async (req, res, next) => {
     if (existing) {
       return respondAlert(req, res, {
         id: 'register-alert',
-        message: 'Akaunti hii tayari imesajiliwa.',
+        message: 'Akaunti hii tayari imesajiliwa. Tafadhali Login',
         redirectPath: '/auth/register',
       });
     }
