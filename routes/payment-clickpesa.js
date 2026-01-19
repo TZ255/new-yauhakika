@@ -65,7 +65,7 @@ router.post('/api/pay', async (req, res) => {
       amount: (email === "janjatzblog@gmail.com" || user.role === 'admin') ? 1000 : PRICE.weekly
     };
 
-    const bkaziServer = "https://baruakazi-production.up.railway.app/payment/process/uhakika"
+    const bkaziServer = "https://baruakazi.co.tz/payment/process/uhakika"
     const apiResp = await axios.post(bkaziServer, payload)
 
     if (!apiResp) {
