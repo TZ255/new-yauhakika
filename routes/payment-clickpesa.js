@@ -55,10 +55,10 @@ router.post('/api/pay', async (req, res) => {
     }
 
     // restrict halotel temporary
-    if (phoneNumberDetails.telecomCompanyDetails.brand.toLowerCase() === 'halotel') {
-      res.set('HX-Reswap', 'none');
-      return res.render('fragments/payment-form-error', { layout: false, message: 'Samahani! Kuna changamoto ya mtandao kwa Halotel. Tafadhali tumia Tigo au Airtel.' });
-    }
+    // if (phoneNumberDetails.telecomCompanyDetails.brand.toLowerCase() === 'halotel') {
+    //   res.set('HX-Reswap', 'none');
+    //   return res.render('fragments/payment-form-error', { layout: false, message: 'Samahani! Kuna changamoto ya mtandao kwa Halotel. Tafadhali tumia Tigo au Airtel.' });
+    // }
 
     const orderRef = generateOrderId(phone);
 
