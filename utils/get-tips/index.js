@@ -146,7 +146,7 @@ export async function getHt15Tips() {
 export async function getVipTips() {
   const { today, yesterday, tomorrow } = dateStrings();
   const docs = await vipModel
-    .find({ date: { $in: [today, yesterday, tomorrow] } })
+    .find({ date: { $in: [today, yesterday, tomorrow] }, vip_no: 3 })
     .sort('time')
     .lean();
 
