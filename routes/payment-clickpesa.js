@@ -107,10 +107,10 @@ router.post('/api/payment-webhook', async (req, res) => {
     if (payment_status === 'COMPLETED') {
       try {
         await confirmWeeklySubscription(email, phone);
-        sendTelegramNotification(`✅ Confirmed paid sub for ${email} - yaUhakika`, true);
+        sendTelegramNotification(`✅ YAUhakika Confirmed \nEmail: ${email} \nPhone: ${phone} \nOrder ID: ${order_id}`, true);
       } catch (e) {
         console.error('grantSubscription webhook error:', e?.message || e);
-        sendTelegramNotification(`❌ Failed to confirm a paid sub for ${email} - yaUhakika. Please confirm manually`, true);
+        sendTelegramNotification(`❌ Failed to confirm a paid sub for ${email} with phone ${phone} - yaUhakika. Please confirm manually`, true);
       }
     }
     return res.sendStatus(200);
