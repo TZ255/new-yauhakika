@@ -2,6 +2,7 @@ import axios from "axios";
 
 // receive the message and send telegram notification via axios
 const chatId = 741815228
+const payment_channel = -1003744778123
 
 export const sendTelegramNotification = async (message, disable_notification = false) => {
     try {
@@ -18,7 +19,7 @@ export const sendTelegramNotification = async (message, disable_notification = f
 
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
         const payload = {
-            chat_id: chatId,
+            chat_id: String(message).toLowerCase().includes('yauhakika confirmed') ? payment_channel : chatId,
             text: message,
             disable_notification,
             parse_mode: 'HTML'
