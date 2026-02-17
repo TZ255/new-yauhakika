@@ -2,33 +2,16 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const slipSchema = new Schema({
-    date: {
-        type: String,
-    },
-    time: {
-        type: String,
-    },
-    league: {
-        type: String,
-        default: '--'
-    },
-    match: {
-        type: String,
-    },
-    tip: {
-        type: String,
-    },
-    odd: {
-        type: String,
-    },
-    expl: {
-        type: String,
-    },
+    match: {type: String},
+    league: {type: String},
+    odd: {type: Number, default: null},
+    time: {type: String},
+    date: {type: String},
+    tip: {type: String},
+    status: {type: String, default: 'pending', enum: ['pending', 'won', 'lost']},
     result: {type: String, default: '-:-'},
-    status: {type: String, default: 'pending'},
-    vip_no: {type: Number, default: 3}
 }, {strict: false, timestamps: true })
 
-let mikDB = mongoose.connection.useDb('mkeka-wa-leo');
-let vipModel = mikDB.model('betslip', slipSchema);
+let mikDB = mongoose.connection.useDb('mikeka-ya-uhakika');
+let vipModel = mikDB.model('vip', slipSchema);
 export default vipModel;
