@@ -72,17 +72,14 @@ router.post('/api/pay', async (req, res) => {
     };
 
     const bkaziServer = "https://baruakazi.co.tz/payment/process/uhakika"
-    const apiResp = await axios.post(bkaziServer, payload)
-
-    if (!apiResp) {
-      console.error('PAY error: No response from payment API');
-      return res.render('fragments/payment-error', { layout: false, message: apiResp?.message || 'Imeshindikana kuanzisha malipo. Jaribu tena.' });
-    }
-
-    if (apiResp && apiResp.data?.success !== true) {
-      console.error('PAY error:', apiResp.data?.message || 'Payment API returned unsuccessful response');
-      res.set('HX-Reswap', 'none');
-      return res.render('fragments/payment-form-error', { layout: false, message: apiResp.data?.message || 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.' });
+    
+    try {
+      const apiResp = await axios.post(bkaziServer, payload);
+      if (!apiResp || apiResp.data?.success !== true) throw new Error(`Hitilafu imetokea. Tafadhali jaribu tena baadae`);
+    } catch (error) {
+      let errorMessage = error?.response?.data?.message || error?.message || 'Unknown error';
+      console.error('Payment initiation error:', errorMessage);
+      return res.render('fragments/payment-error', { layout: false, message: errorMessage });
     }
 
     sendTelegramNotification(`💰 ${email} initiated payment for weekly plan - yaUhakika`, true);
