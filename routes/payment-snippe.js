@@ -169,7 +169,7 @@ router.post('/webhook/snippe', async (req, res) => {
     res.status(200).json({ success: true, message: 'Webhook received' }); // Acknowledge receipt of the webhook immediately
 
     try {
-        const { id, type, data: { reference, status, customer: { email, phone }, metadata: { order_id } } } = req.body || {};
+        const { id, type, data: { status, customer: { email, phone }, metadata: { order_id } } } = req.body || {};
 
         if (!id || !type || !status || !email || !phone || !order_id) {
             throw new Error('Missing required fields in webhook payload');
