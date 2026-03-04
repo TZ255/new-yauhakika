@@ -51,7 +51,7 @@ export async function confirmWeeklySubscription(email, phone = null) {
     <p>Ingia hapa kuona mikeka ya VIP: <a href="${vipUrl}">${vipUrl}</a></p>
     <p>Asante kwa kuchagua Mikeka ya Uhakika. Ushindi mwema!</p>
   `;
-  const sms_text = `Malipo yako ya Mikeka ya Uhakika - VIP Tips ya wiki moja yamethibitishwa kikamilifu hadi ${formatDate(expiresAt)}.\n\nFurahia mikeka yetu ya VIP kila siku!\nhttps://mikekayauhakika.com/vip\n\nAsante!`
+  const sms_text = `Malipo yako ya Mikeka ya Uhakika - VIP Tips ya wiki moja yamethibitishwa kikamilifu. \nYataisha ${formatDate(expiresAt)}.`
 
   //send email, error is handled inside sendEmail
   sendEmail(user.email, subject, html);
