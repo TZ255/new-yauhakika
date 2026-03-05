@@ -2,13 +2,14 @@ import { Router } from 'express';
 import { loadPosts } from '../utils/blog.js';
 import { pageMeta } from '../utils/meta.js';
 import { enforceVipAccess } from '../utils/vipAccess.js';
-import { getMegaTips, getOver15Tips, getBttsTips, getHt15Tips, getVipTips } from '../utils/get-tips/index.js';
+import { getMegaTips, getOver15Tips, getBttsTips, getHt15Tips, getVipTips, getTreniTips } from '../utils/get-tips/index.js';
 import { sendNEXTSMS, sendNormalSMS } from '../utils/sendSMS.js';
 
 const router = Router();
 
 router.get('/', async (req, res) => {
   const tips = await getMegaTips();
+  const treniTips = await getTreniTips();
   const latestPosts = (await loadPosts()).slice(0, 3);
   res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/home', {
@@ -16,6 +17,7 @@ router.get('/', async (req, res) => {
     meta: pageMeta({ title: 'Mikeka ya Uhakika | Pata Mikeka ya Bure Kila Siku', path: '/', image: '/social_img.webp' }),
     tips,
     latestPosts,
+    treniTips,
   });
 });
 

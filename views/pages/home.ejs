@@ -32,9 +32,12 @@
       <div class="card h-100 blog-card" onclick="window.location.href = '/vip/';" style="cursor: pointer;">
         <img src="/mikeka/vip-tips.webp" class="card-img-top" alt="VIP Tips" />
         <div class="card-body d-flex flex-column">
-          <h3 class="h5 text-dark">Mikeka ya VIP</h3>
+          <h3 class="h5 text-dark">Mikeka ya VIP <i class="fa-brands fa-web-awesome fa-shake"></i></h3>
           <p class="text-muted flex-grow-1">Mikeka ya VIP - Odds 2 hadi 3 kila siku za uhakika</p>
-          <a href="/vip/" class="btn btn-outline-success mt-auto">Fungua Mikeka Hii</a>
+          <a href="/vip/" class="btn btn-warning mt-auto">
+            Fungua Mikeka ya VIP
+            <i class="fa-solid fa-arrow-right ms-2 fa-beat"></i>
+          </a>
         </div>
       </div>
       <div class="card h-100 blog-card" onclick="window.location.href = '/over-15/';" style="cursor: pointer;">
@@ -68,6 +71,11 @@
       </div>
     </div>
   </section>
+
+  <section class="my-3">
+    <%- include('../blocks/tips-panel', { heading: 'Mkeka: Treni la Leo', subheading: 'Chagua siku kutazama treni la siku husika', category: 'treni', tips: treniTips }) %>
+  </section>
+
 
   <section class="section-card mt-5">
     <div class="section-header">

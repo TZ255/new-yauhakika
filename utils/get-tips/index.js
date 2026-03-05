@@ -36,6 +36,10 @@ function normalizePrediction(prediction) {
       return 'BTTS: Yes';
     case 'NO':
       return 'BTTS: No';
+    case 'OV 1.5':
+      return 'Over 1.5';
+    case 'UN 2.5':
+      return 'Under 2.5';
     default:
       return prediction;
   }
@@ -156,6 +160,45 @@ export async function getVipTips() {
     if (doc.date === today) buckets.leo.push(tip);
     if (doc.date === yesterday) buckets.jana.push(tip);
     if (doc.date === tomorrow) buckets.kesho.push(tip);
+  });
+
+  return buckets;
+}
+
+
+export async function getTreniTips() {
+  const { today, yesterday, tomorrow } = dateStrings();
+  const under25 = ['0:0'];
+  const under35 = ['0:1'];
+  const over15 = ['3:1', '1:3'];
+  const over25 = ['4:2', '2:4', '5:1', '5:2'];
+  const htover05 = ['3:2', '2:3']
+  const homeWins = ['3:0', '4:0', '4:1', '5:0', '5:1'];
+  const awayWins = ['0:3', '0:4', '1:4', '0:5', '1:5'];
+  const dc1x = ['2:0']
+  const dcx2 = ['0:2']
+  const docs = await correctScoreModel
+    .find({ siku: { $in: [today, yesterday, tomorrow] }, tip: { $in: [...under25, ...under35, ...over15, ...over25, ...htover05, ...homeWins, ...awayWins, ...dc1x, ...dcx2] } })
+    .sort('time')
+    .lean()
+    .cache(600);
+
+  const buckets = emptyBuckets();
+  docs.forEach((doc) => {
+    let prediction = doc.tip;
+    if (under25.includes(doc.tip)) prediction = 'Under 2.5';
+    if (under35.includes(doc.tip)) prediction = 'Under 3.5';
+    if (over25.includes(doc.tip)) prediction = 'Over 2.5';
+    if (over15.includes(doc.tip)) prediction = 'Over 1.5';
+    if (htover05.includes(doc.tip)) prediction = 'HT Over 0.5';
+    if (homeWins.includes(doc.tip)) prediction = 'Home Win';
+    if (awayWins.includes(doc.tip)) prediction = 'Away Win';
+    if (dc1x.includes(doc.tip)) prediction = '1X';
+    if (dcx2.includes(doc.tip)) prediction = 'X2';
+    const tip = mapTip(doc, prediction);
+    if (doc.siku === today) buckets.leo.push(tip);
+    if (doc.siku === yesterday) buckets.jana.push(tip);
+    if (doc.siku === tomorrow) buckets.kesho.push(tip);
   });
 
   return buckets;
