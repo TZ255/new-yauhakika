@@ -150,8 +150,8 @@ export async function getHt15Tips() {
 
 export async function getVipTips() {
   const { today, yesterday, tomorrow } = dateStrings();
-  const docs = await Betslip3Model
-    .find({ vip_no: 3, date: { $in: [today, yesterday, tomorrow] } })
+  const docs = await vipModel
+    .find({ date: { $in: [today, yesterday, tomorrow] } })
     .sort('time')
     .lean();
 
