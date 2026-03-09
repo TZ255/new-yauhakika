@@ -2,6 +2,7 @@ import fametipsModel from '../../models/fametips.js';
 import correctScoreModel from '../../models/correctScoreModel.js';
 import vipModel from '../../models/vip.js';
 import MikekaTipsModel from '../../models/mikeka-tips.js';
+import Betslip3Model from '../../models/vip3.js';
 
 const TZ = 'Africa/Nairobi';
 
@@ -149,8 +150,8 @@ export async function getHt15Tips() {
 
 export async function getVipTips() {
   const { today, yesterday, tomorrow } = dateStrings();
-  const docs = await vipModel
-    .find({ date: { $in: [today, yesterday, tomorrow] } })
+  const docs = await Betslip3Model
+    .find({ vip_no: 3, date: { $in: [today, yesterday, tomorrow] } })
     .sort('time')
     .lean();
 
