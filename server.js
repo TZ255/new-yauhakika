@@ -24,6 +24,7 @@ import { connectDB } from './config/db.js';
 import { SITE, NAV_ITEMS } from './config/site.js';
 import { pageMeta } from './utils/meta.js';
 import './config/passport.js';
+import { startCronJobs } from './cron/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -120,4 +121,5 @@ const server = http.createServer(app);
 
 server.listen(port, () => {
   console.log(`SSR server running at http://localhost:${port}`);
+  startCronJobs();
 });

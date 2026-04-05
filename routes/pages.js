@@ -4,6 +4,7 @@ import { pageMeta } from '../utils/meta.js';
 import { enforceVipAccess } from '../utils/vipAccess.js';
 import { getMegaTips, getOver15Tips, getBttsTips, getHt15Tips, getVipTips, getTreniTips } from '../utils/get-tips/index.js';
 import { sendNEXTSMS, sendNormalSMS } from '../utils/sendSMS.js';
+import fameTipsModel from '../models/fametips.js';
 
 const router = Router();
 
@@ -113,6 +114,8 @@ router.get('/projects', (req, res) => {
 
 router.get('/api/testing', async (req, res) => {
   try {
+    // update all tips with isRefined field set to false
+    //
     res.end()
   } catch (error) {
     console.log(error)

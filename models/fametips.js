@@ -31,6 +31,10 @@ const supatipSchema = new Schema({
         type: String,
         default: 'pending'
     },
+    isRefined: {
+        type: Boolean,
+        default: false
+    },
     UTC3: {
         type: Number
     }
