@@ -25,8 +25,9 @@ function emptyBuckets() {
   return { jana: [], leo: [], kesho: [] };
 }
 
-function normalizePrediction(prediction) {
-  switch ((prediction || '').toUpperCase()) {
+function normalizePrediction(prediction, match) {
+  const upper = (prediction || '').toUpperCase();
+  switch (upper) {
     case 'HOME WIN':
       return '1';
     case 'AWAY WIN':
@@ -42,12 +43,22 @@ function normalizePrediction(prediction) {
     case 'UN 2.5':
       return 'Under 2.5';
     default:
+      if (match && upper.endsWith(' WIN')) {
+        const teamName = upper.slice(0, -4).trim();
+        const parts = match.toUpperCase().split(/\s+VS\.?\s+|\s+-\s+/);
+        if (parts.length === 2) {
+          const home = parts[0].trim();
+          const away = parts[1].trim();
+          if (home.includes(teamName) || teamName.includes(home)) return '1';
+          if (away.includes(teamName) || teamName.includes(away)) return '2';
+        }
+      }
       return prediction;
   }
 }
 
 function mapTip(doc, prediction) {
-  const normalized = normalizePrediction(prediction || doc.bet || doc.tip);
+  let normalized = normalizePrediction(prediction || doc.bet || doc.tip, doc.match);
   return {
     match: doc.match,
     league: doc.league,
