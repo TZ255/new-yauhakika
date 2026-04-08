@@ -38,7 +38,7 @@ function normalizePrediction(prediction, match) {
       return 'BTTS: Yes';
     case 'NO':
       return 'BTTS: No';
-    case 'OV 1.5':
+    case 'OV 1.5': case 'FT OVER 1.5':
       return 'Over 1.5';
     case 'UN 2.5':
       return 'Under 2.5';
