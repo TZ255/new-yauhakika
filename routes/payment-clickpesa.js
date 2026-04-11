@@ -74,7 +74,9 @@ router.post('/api/pay', async (req, res) => {
     const bkaziServer = "https://baruakazi.co.tz/payment/process/uhakika"
     
     try {
-      const apiResp = await axios.post(bkaziServer, payload);
+      const apiResp = await axios.post(bkaziServer, payload, {
+        headers: {"x-webhook-secret": process.env.PASS_USER}
+      });
       if (!apiResp || apiResp.data?.success !== true) throw new Error(`Hitilafu imetokea. Tafadhali jaribu tena baadae`);
     } catch (error) {
       let errorMessage = error?.response?.data?.message || error?.message || 'Unknown error';
