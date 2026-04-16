@@ -57,7 +57,7 @@ router.post('/api/pay', async (req, res) => {
     }
 
     const phoneNumberDetails = getPhoneNumberDetails(phone);
-    if (phoneNumberDetails.telecomCompanyDetails.brand.toLowerCase() === 'vodacom') {
+    if (phoneNumberDetails.telecomCompanyDetails?.brand?.toLowerCase() === 'vodacom') {
       res.set('HX-Reswap', 'none');
       return res.render('fragments/payment-form-error', { layout: false, message: 'Samahani! Malipo kwa Vodacom hayaruhusiwi kwa sasa. Tumia Tigo, Airtel au Halotel.' });
     }
