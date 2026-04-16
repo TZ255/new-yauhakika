@@ -15,8 +15,16 @@ function isValidEmail(email = '') {
 }
 
 function normalizePhone(phone9 = '') {
-  if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
-  return `255${phone9.trim()}`;
+    //if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
+
+    const phoneString = String(phone9).trim();
+
+    // Ensure it starts with 6 or 7 and is followed by exactly 8 digits
+    if (!/^[67]\d{8}$/.test(phoneString)) {
+        return null;
+    }
+
+    return `255${phoneString}`;
 }
 
 router.get('/api/pay-form', async (req, res) => {
