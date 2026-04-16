@@ -15,16 +15,16 @@ function isValidEmail(email = '') {
 }
 
 function normalizePhone(phone9 = '') {
-    //if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
+  //if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
 
-    const phoneString = String(phone9).trim();
+  const phoneString = String(phone9).trim();
 
-    // Ensure it starts with 6 or 7 and is followed by exactly 8 digits
-    if (!/^[67]\d{8}$/.test(phoneString)) {
-        return null;
-    }
+  // Ensure it starts with 6 or 7 and is followed by exactly 8 digits
+  if (!/^[67]\d{8}$/.test(phoneString)) {
+    return null;
+  }
 
-    return `255${phoneString}`;
+  return `255${phoneString}`;
 }
 
 router.get('/api/pay-form', async (req, res) => {
@@ -80,16 +80,31 @@ router.post('/api/pay', async (req, res) => {
     };
 
     const bkaziServer = "https://baruakazi.co.tz/payment/process/uhakika"
-    
+
     try {
       const apiResp = await axios.post(bkaziServer, payload, {
-        headers: {"x-webhook-secret": process.env.PASS_USER}
+        headers: { "x-webhook-secret": process.env.PASS_USER }
       });
-      if (!apiResp || apiResp.data?.success !== true) throw new Error(`Hitilafu imetokea. Tafadhali jaribu tena baadae`);
     } catch (error) {
-      let errorMessage = error?.response?.data?.message || error?.message || 'Unknown error';
-      console.error('Payment initiation error:', errorMessage);
-      return res.render('fragments/payment-error', { layout: false, message: errorMessage });
+      let message = 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.';
+
+      if (error?.response) {
+        // Server responded (4xx / 5xx)
+        message = error.response.data?.message || message;
+      } else if (error?.request) {
+        // Request sent but no response
+        message = 'Hakuna majibu kutoka server. Angalia internet au jaribu tena.';
+      } else {
+        // Something else
+        message = error.message;
+      }
+
+      console.error('Payment initiation error:', message);
+
+      return res.render('fragments/payment-error', {
+        layout: false,
+        message
+      });
     }
 
     sendTelegramNotification(`💰 ${email} initiated payment for weekly plan - yaUhakika`, true);
@@ -108,8 +123,11 @@ router.post('/api/pay', async (req, res) => {
 router.post('/api/payment-webhook', async (req, res) => {
   console.log('WEBHOOK received:', req.body);
   try {
-    const { order_id, payment_status, email, phone, reference, SECRET } = req.body || {};
-    if (!order_id || SECRET !== process.env.PASS_USER) return res.sendStatus(400).json({ success: false, message: 'Invalid request' });
+    const { order_id, payment_status, email, phone, reference } = req.body || {};
+
+    const secret = req.headers['x-webhook-secret'];
+
+    if (!order_id || secret !== process.env.PASS_USER) return res.sendStatus(400).json({ success: false, message: 'Invalid request' });
 
     if (payment_status === 'COMPLETED') {
       try {
