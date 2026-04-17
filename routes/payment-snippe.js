@@ -1,51 +1,3 @@
-//webhook example response from snippe
-
-/* 
-{
-"id": "evt_4e3a6a40250368c1bf45b28e",
-"type": "payment.completed",
-"api_version": "2026-01-25",
-"created_at": "2026-03-04T08:41:16Z",
-"data": {
-"reference": "95e426ec-c2c9-4354-a4b9-d33be4de9f86",
-"external_reference": "S20443561123",
-"status": "completed",
-"amount": {
-  "value": 500,
-  "currency": "TZS"
-},
-"settlement": {
-  "gross": {
-    "value": 500,
-    "currency": "TZS"
-  },
-  "fees": {
-    "value": 2,
-    "currency": "TZS"
-  },
-  "net": {
-    "value": 498,
-    "currency": "TZS"
-  }
-},
-"channel": {
-  "type": "mobile_money",
-  "provider": "mpesa"
-},
-"customer": {
-  "phone": "+255754920480",
-  "name": "JanjaTZ Blog JanjaTZ Blog",
-  "email": "67abaeab35ae53db4f316048@tanzabyte.com"
-},
-"metadata": {
-  "order_id": "WALEOmmbse8d3"
-},
-"completed_at": "2026-03-04T08:41:14.249226Z"
-}
-}
-*/
-
-
 import { Router } from 'express';
 import { sendTelegramNotification } from '../utils/sendTelegramNotifications.js';
 import { confirmWeeklySubscription } from '../utils/subscription.js';
@@ -135,7 +87,7 @@ router.post('/api/pay', async (req, res) => {
                 "lastname": normalizeName(user?.name || null).lastName,
                 "email": `${user._id}@tanzabyte.com`
             },
-            "webhook_url": "https://mikekayauhakika.com/webhook/snippe",
+            "webhook_url": "https://baruakazi.co.tz/payment/webhook/snippe/uhakika",
             "metadata": {
                 "order_id": orderRef
             }
