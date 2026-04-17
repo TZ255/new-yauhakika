@@ -66,8 +66,16 @@ function isValidEmail(email = '') {
 }
 
 function normalizePhone(phone9 = '') {
-    if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
-    return `255${phone9.trim()}`;
+  //if (!isValidPhoneNumber(`255${phone9.trim()}`)) return null;
+
+  const phoneString = String(phone9).trim();
+
+  // Ensure it starts with 6 or 7 and is followed by exactly 8 digits
+  if (!/^[67]\d{8}$/.test(phoneString)) {
+    return null;
+  }
+
+  return `255${phoneString}`;
 }
 
 // normalize the user name, if it contains space, first part will be firstname, the rest will be lastname. If no space, all will be firstname and lastname will be also the same as firstname
@@ -111,12 +119,6 @@ router.post('/api/pay', async (req, res) => {
         const phoneNumberDetails = getPhoneNumberDetails(phone);
         let network = phoneNumberDetails?.telecomCompanyDetails?.brand?.toLowerCase() || 'unknown';
 
-        if (!['halotel', 'tigo', 'airtel', 'vodacom', 'smile'].includes(network)) {
-            res.set('HX-Reswap', 'none');
-            return res.render('fragments/payment-form-error', { layout: false, message: 'Mtandao wa simu si sahihi. Tumia Voda, Tigo, Airtel au Halotel.' });
-        }
-
-
         const orderRef = generateOrderId(phone);
         const timestamp_string = Date.now().toString(36);
 
@@ -124,7 +126,7 @@ router.post('/api/pay', async (req, res) => {
         const payload = {
             "payment_type": "mobile",
             "details": {
-                "amount": email === "janjatzblog@gmail.com" ? 1000 : PRICE.weekly,
+                "amount": email === "janjatzblog@gmail.com" ? 500 : PRICE.weekly,
                 "currency": "TZS"
             },
             "phone_number": phone,
@@ -147,11 +149,12 @@ router.post('/api/pay', async (req, res) => {
         } catch (error) {
             console.error('PAY error:', error?.message || 'Payment API returned unsuccessful response');
             res.set('HX-Reswap', 'none');
-            return res.render('fragments/payment-form-error', { layout: false, message: error?.message || 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.' });
+            sendTelegramNotification(`❌❌ Payment Inition Error (UH): \nEmail: ${email} \nPhone: ${phone} \nMessage: ${error?.message}`, true);
+            return res.render('fragments/payment-form-error', { layout: false, message: 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.' });
         }
 
         // Send notification to Laura about the successfully initiated payment
-        sendTelegramNotification(`💰 ${email} initiated payment for weekly plan - yaUhakika`, true);
+        sendTelegramNotification(`💰 ${email}, ${phone} initiated payment for weekly plan - yaUhakika`, true);
 
         return res.render('fragments/payment-initiated', {
             layout: false,
@@ -160,6 +163,7 @@ router.post('/api/pay', async (req, res) => {
         });
     } catch (error) {
         console.error('PAY error:', error?.message || error);
+        sendTelegramNotification(`❌❌Payment Initiation Error (yaUH). Check Logs`, true);
         return res.render('fragments/payment-error', { layout: false, message: 'Hitilafu imetokea. Tafadhali jaribu tena.' });
     }
 });
