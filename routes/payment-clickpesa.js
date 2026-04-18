@@ -8,7 +8,7 @@ import axios from 'axios';
 const router = Router();
 
 const generateOrderId = (phone) => `UHAKIKA${Date.now().toString(36)}`;
-const PRICE = { weekly: 8000 };
+const PRICE = { weekly: 7920 };
 
 function isValidEmail(email = '') {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
