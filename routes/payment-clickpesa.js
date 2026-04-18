@@ -107,7 +107,7 @@ router.post('/api/pay', async (req, res) => {
       });
     }
 
-    sendTelegramNotification(`💰 ${email} initiated payment for weekly plan - yaUhakika`, true);
+    sendTelegramNotification(`💰 ${email}, ${phone} initiated payment for weekly plan - yaUhakika`, true);
 
     return res.render('fragments/payment-initiated', {
       layout: false,
