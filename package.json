@@ -30,7 +30,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "recachegoose": "^11.0.3",
-    "resend": "^6.5.2",
+    "resend": "^6.1.3",
     "tanzanian-phone-validator": "github:TZ255/tanzanian-phone-validator"
   },
   "devDependencies": {
