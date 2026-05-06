@@ -51,6 +51,7 @@ router.post('/api/pay', async (req, res) => {
 
     //disable Vodacom for now due to frequent issues
     if (networkBrand === 'vodacom') {
+      res.set('HX-Reswap', 'none');
       return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao imetokea Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
     }
 
