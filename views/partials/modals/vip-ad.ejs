@@ -1,0 +1,56 @@
+<div class="modal fade" id="vipModal" tabindex="-1" aria-labelledby="vipModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:#050505;border-radius:22px;overflow:hidden;border:1px solid rgba(255,215,80,0.65);box-shadow:0 24px 70px rgba(0,0,0,0.75),0 0 45px rgba(245,180,22,0.32);position:relative;">
+      <div style="position:absolute;inset:-80px -80px auto auto;width:220px;height:220px;background:radial-gradient(circle,rgba(255,205,64,0.45),rgba(255,205,64,0.06) 55%,transparent 70%);pointer-events:none;"></div>
+
+      <div class="modal-header py-3 px-3" style="background:linear-gradient(135deg,rgba(255,207,64,0.22),rgba(255,207,64,0.03) 45%,rgba(0,0,0,0.95)),linear-gradient(90deg,#090909,#15110a);color:#ffffff;border-bottom:1px solid rgba(255,215,80,0.55);position:relative;z-index:1;">
+        <h5 class="modal-title fw-black d-flex align-items-center gap-2 mb-0" id="vipModalLabel" style="letter-spacing:0.5px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#ffe06b,#b87906);color:#111;box-shadow:0 0 18px rgba(255,203,55,0.65);font-size:1rem;" aria-hidden="true">♛</span>
+          <span style="font-weight:900;color:#ffd86b;text-shadow:0 2px 12px rgba(255,205,64,0.45);">VIP MIKEKA</span>
+          <span aria-hidden="true">🔥🔥</span>
+        </h5>
+        <button type="button" class="ms-auto" data-bs-dismiss="modal" aria-label="Close" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,215,80,0.75);background:rgba(0,0,0,0.55);color:#ffd86b;font-size:1.6rem;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(255,205,64,0.35);padding:0;">&times;</button>
+      </div>
+
+      <div class="modal-body py-3 px-3" style="background:radial-gradient(circle at top left,rgba(255,202,43,0.18),transparent 38%),radial-gradient(circle at bottom right,rgba(255,202,43,0.12),transparent 40%),linear-gradient(180deg,#090909,#020202);position:relative;z-index:1;">
+        <p class="mb-3 fw-semibold" style="color:#f8fafc;font-size:0.95rem;line-height:1.55;padding:0.9rem 1rem;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.025));border:1px solid rgba(255,215,80,0.35);box-shadow:inset 0 0 18px rgba(255,215,80,0.05);">
+          <strong style="color:#ffd86b;font-weight:900;">ODDS 2 HADI 3 ZA UHAKIKA KILA SIKU 🔥</strong> <br>
+          Jiunge na washindi. Furahia VIP mikeka ya uhakika kila siku yenye zaidi ya 90% ya ushindi
+        </p>
+
+        <div class="rounded-4 shadow-sm mb-2" style="cursor:pointer;padding:4px;border-radius:20px;background:linear-gradient(135deg,#ffe06b,#9d6504,#ffe06b);box-shadow:0 12px 32px rgba(0,0,0,0.65),0 0 28px rgba(255,205,64,0.28);" onclick="window.location.href = '/vip'">
+          <div style="border-radius:17px;overflow:hidden;background:#111;border:1px solid rgba(0,0,0,0.7);">
+            <img src="/ads/vip.webp" alt="Mikeka ya Uhakika VIP" class="img-fluid w-100" style="display:block;border-radius:17px;" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer w-100 d-flex justify-content-between align-items-center py-3 px-3" style="background:linear-gradient(90deg,#050505,#141006,#050505);border-top:1px solid rgba(255,215,80,0.55);position:relative;z-index:1;">
+        <div class="d-flex flex-column">
+          <strong style="color:#ffd86b;font-size:0.98rem;font-weight:900;text-shadow:0 0 12px rgba(255,205,64,0.45);">Ushindi unakusubiri!</strong>
+          <small style="color:#e5e7eb;font-size:0.76rem;opacity:0.9;">Jiunge jumba la ushindi</small>
+        </div>
+        <button type="button" class="btn fw-bold" style="color:#111;background:linear-gradient(135deg,#fff1a6,#facc15,#b87906);border:none;border-radius:999px;padding:0.55rem 1.45rem;box-shadow:0 6px 18px rgba(250,204,21,0.38),inset 0 1px 0 rgba(255,255,255,0.55);font-size:0.92rem;letter-spacing:0.3px;" onclick="window.location.href = '/vip'">
+          INGIA VIP SASA
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const modalElement = document.getElementById('vipModal');
+    if (!modalElement || !window.bootstrap) return;
+    const vipModal = new bootstrap.Modal(modalElement);
+    let showTimer;
+    const scheduleShow = (delay) => {
+      clearTimeout(showTimer);
+      showTimer = setTimeout(() => vipModal.show(), delay);
+    };
+    scheduleShow(15000);
+    modalElement.addEventListener('hidden.bs.modal', () => {
+      scheduleShow(30000);
+    });
+  });
+</script>
