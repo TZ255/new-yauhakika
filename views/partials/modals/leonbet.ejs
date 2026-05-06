@@ -28,19 +28,3 @@
     </div>
   </div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const modalElement = document.getElementById('leonbetModal');
-    if (!modalElement || !window.bootstrap) return;
-    const leonbetModal = new bootstrap.Modal(modalElement);
-    let showTimer;
-    const scheduleShow = (delay) => {
-      clearTimeout(showTimer);
-      showTimer = setTimeout(() => leonbetModal.show(), delay);
-    };
-    scheduleShow(15000);
-    modalElement.addEventListener('hidden.bs.modal', () => {
-      scheduleShow(30000);
-    });
-  });
-</script>
