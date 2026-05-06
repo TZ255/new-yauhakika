@@ -38,19 +38,26 @@
   </div>
 </div>
 
+<!-- The second modal (leon) goes here -->
+<%- include('./leonbet') %>
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const modalElement = document.getElementById('vipModal');
-    if (!modalElement || !window.bootstrap) return;
-    const vipModal = new bootstrap.Modal(modalElement);
-    let showTimer;
-    const scheduleShow = (delay) => {
-      clearTimeout(showTimer);
-      showTimer = setTimeout(() => vipModal.show(), delay);
-    };
-    scheduleShow(15000);
-    modalElement.addEventListener('hidden.bs.modal', () => {
-      scheduleShow(30000);
+    const mainModal = new bootstrap.Modal(document.getElementById('vipModal'));
+    const swapModal = new bootstrap.Modal(document.getElementById('leonbetModal'));
+
+    // When main modal is closed, schedule swap modal
+    document.getElementById('vipModal').addEventListener('hidden.bs.modal', function () {
+      setTimeout(function () { swapModal.show(); }, 30000);
     });
+
+    // When swap modal is closed, schedule main modal
+    document.getElementById('leonbetModal').addEventListener('hidden.bs.modal', function () {
+      setTimeout(function () { mainModal.show(); }, 30000);
+    });
+
+    // Show main modal after 15s initial delay
+    setTimeout(function () { mainModal.show(); }, 15000);
   });
 </script>
