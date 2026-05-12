@@ -49,9 +49,10 @@ router.post('/api/pay', async (req, res) => {
     const gateway = selectPaymentGateway(networkBrand, phone);
     const orderRef = generateOrderId();
 
-     //disable Vodacom for now due to frequent issues
+    //disable Vodacom for now due to frequent issues
     if (networkBrand === 'vodacom') {
-      return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao imetokea Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
+      res.set('HX-Reswap', 'none');
+      return res.render('fragments/payment-form-error', { layout: false, message: 'Kuna changamoto ya mtandao Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
     }
 
     try {
@@ -64,7 +65,7 @@ router.post('/api/pay', async (req, res) => {
       console.error('PAY error:', error?.message || error);
       const gatewayLabel = gateway === 'snippe' ? 'Snippe' : 'ClickPesa';
       res.set('HX-Reswap', 'none');
-      sendTelegramNotification(`❌❌ YH Payment Initiation Error (${gatewayLabel}): \nEmail: ${email} \nPhone: ${phone} \nMessage: ${error?.message}`, true); 
+      sendTelegramNotification(`❌❌ YH Payment Initiation Error (${gatewayLabel}): \nEmail: ${email} \nPhone: ${phone} \nMessage: ${error?.message}`, true);
       return res.render('fragments/payment-form-error', {
         layout: false,
         message: error?.userMessage || 'Imeshindikana kuanzisha malipo. Jaribu tena baadaye.',
