@@ -49,6 +49,11 @@ router.post('/api/pay', async (req, res) => {
     const gateway = selectPaymentGateway(networkBrand, phone);
     const orderRef = generateOrderId();
 
+     //disable Vodacom for now due to frequent issues
+    if (networkBrand === 'vodacom') {
+      return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao imetokea Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
+    }
+
     try {
       if (gateway === 'snippe') {
         await initializeSnippeGatewayPayment({ user, email, phone, orderRef });
