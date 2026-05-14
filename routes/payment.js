@@ -50,10 +50,10 @@ router.post('/api/pay', async (req, res) => {
     const orderRef = generateOrderId();
 
     //disable Vodacom for now due to frequent issues
-    if (networkBrand === 'vodacom') {
-      res.set('HX-Reswap', 'none');
-      return res.render('fragments/payment-form-error', { layout: false, message: 'Kuna changamoto ya mtandao Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
-    }
+    // if (networkBrand === 'vodacom') {
+    //   res.set('HX-Reswap', 'none');
+    //   return res.render('fragments/payment-form-error', { layout: false, message: 'Kuna changamoto ya mtandao Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
+    // }
 
     try {
       if (gateway === 'snippe') {
