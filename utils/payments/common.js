@@ -1,4 +1,4 @@
-const SNIPPE_NETWORKS = new Set(['halotel', 'vodacom', 'unknown']);
+const SNIPPE_NETWORKS = new Set(['unknown']);
 const NETWORK_BY_PREFIX = {
   '60': 'unknown',
   '61': 'halotel',

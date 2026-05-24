@@ -55,6 +55,12 @@ router.post('/api/pay', async (req, res) => {
       return res.render('fragments/payment-form-error', { layout: false, message: 'Kuna changamoto ya mtandao Vodacom. Tafadhali tumia Tigo, Airtel, au Halotel.' });
     }
 
+    // disable phone with prefix 70 for now due to clickpesa support
+    if (String(phone).startsWith('25570')) {
+      res.set('HX-Reswap', 'none');
+      return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao. Tafadhali tumia namba nyingine ya Tigo, Airtel, au Halotel.' });
+    }
+
     try {
       if (gateway === 'snippe') {
         await initializeSnippeGatewayPayment({ user, email, phone, orderRef });
