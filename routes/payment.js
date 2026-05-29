@@ -56,10 +56,10 @@ router.post('/api/pay', async (req, res) => {
     }
 
     // disable phone with prefix 70 for now due to clickpesa support
-    if (String(phone).startsWith('25570')) {
-      res.set('HX-Reswap', 'none');
-      return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao. Tafadhali tumia namba nyingine ya Tigo, Airtel, au Halotel.' });
-    }
+    // if (String(phone).startsWith('25570')) {
+    //   res.set('HX-Reswap', 'none');
+    //   return res.render('fragments/payment-form-error', { layout: false, message: 'Changamoto ya mtandao. Tafadhali tumia namba nyingine ya Tigo, Airtel, au Halotel.' });
+    // }
 
     try {
       if (gateway === 'snippe') {
