@@ -10,6 +10,7 @@
     "lint": "echo \"No linter configured\""
   },
   "dependencies": {
+    "@google/genai": "^2.7.0",
     "all": "^0.0.0",
     "axios": "^1.13.2",
     "cheerio": "^1.2.0",

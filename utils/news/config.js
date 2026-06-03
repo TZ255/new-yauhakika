@@ -8,8 +8,12 @@ export const FOOTBALL365_SOURCE_NAME = 'Football365';
 export const FOOTBALL365_ALL_NEWS_URL = 'https://www.football365.com/all-the-news';
 export const FOOTBALL365_ARTICLE_PATH_RE = /^\/news\/[^?#]+/;
 
-export const NEWS_MODEL = 'gpt-5.4-mini';
-export const NEWS_MAX_OUTPUT_TOKENS = 4000;
+export const NEWS_REWRITE_AGENT = 'gemini'; // 'openai' or 'gemini'
+export const NEWS_OPENAI_MODEL = 'gpt-5.4-mini';
+export const NEWS_GEMINI_MODEL = 'gemini-3.5-flash';
+export const NEWS_MODEL = NEWS_REWRITE_AGENT === 'gemini' ? NEWS_GEMINI_MODEL : NEWS_OPENAI_MODEL;
+export const NEWS_MAX_OUTPUT_TOKENS = 8000;
+export const NEWS_GEMINI_MAX_OUTPUT_TOKENS = 12000;
 
 export const INGEST_CRON_ENABLED = true;
 export const INGEST_CRON_SCHEDULE = '*/30 * * * *';

@@ -3,7 +3,7 @@ import BlogPost from '../../models/blogPost.js';
 import NewsIngest from '../../models/newsIngest.js';
 import { discoverFootball365Articles, extractFootball365Article } from './sources/football365.js';
 import { hashArticle, normalizeUrl, uniqueSlug } from './dedupe.js';
-import { rewriteArticleToSwahili } from './openaiRewrite.js';
+import { rewriteArticleToSwahili } from './rewrite.js';
 import { validateGeneratedPost } from './quality.js';
 import { processAndUploadImage } from './images.js';
 import {

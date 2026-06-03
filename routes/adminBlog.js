@@ -4,6 +4,7 @@ import { pageMeta } from '../utils/meta.js';
 import { runFootball365Ingestion } from '../utils/news/pipeline.js';
 import { slugExistsInFilePosts } from '../utils/news/dedupe.js';
 import { slugify } from '../utils/slugify.js';
+import { renderMarkdown } from '../utils/blog.js';
 
 const router = Router();
 
@@ -38,11 +39,9 @@ async function loadDrafts() {
   return BlogPost.find({ status: 'draft' }).sort({ createdAt: -1 }).lean();
 }
 
-router.use(requireAdmin);
-
-router.get('/', asyncRoute(async (req, res) => {
+async function renderAdminBlogPage(res, { layout = undefined, notice = null } = {}) {
   const drafts = await loadDrafts();
-  res.render('pages/admin-blog', {
+  const locals = {
     activeId: 'admin-blog',
     meta: pageMeta({
       title: 'Admin Blog Drafts',
@@ -51,7 +50,19 @@ router.get('/', asyncRoute(async (req, res) => {
     }),
     drafts,
     selectedPost: drafts[0] || null,
-    notice: null,
+    notice,
+  };
+  if (layout !== undefined) locals.layout = layout;
+
+  return res.render('pages/admin-blog', locals);
+}
+
+router.use(requireAdmin);
+
+router.get('/', asyncRoute(async (req, res) => {
+  return renderAdminBlogPage(res, {
+    layout: req.headers['hx-request'] ? false : undefined,
+    notice: req.query.published ? { type: 'success', message: 'Post published.' } : null,
   });
 }));
 
@@ -59,6 +70,29 @@ router.get('/drafts', asyncRoute(async (req, res) => {
   res.render('fragments/admin-blog-list', {
     layout: false,
     drafts: await loadDrafts(),
+  });
+}));
+
+router.get('/draft/:slug', asyncRoute(async (req, res, next) => {
+  const post = await BlogPost.findOne({ slug: req.params.slug, status: 'draft' }).lean();
+  if (!post) return next();
+
+  const previewPost = {
+    ...post,
+    pubDate: post.pubDate || post.createdAt || new Date(),
+  };
+
+  return res.render('pages/blog-detail', {
+    activeId: 'admin-blog',
+    meta: pageMeta({
+      title: previewPost.title,
+      description: previewPost.description,
+      path: `/admin/blog/draft/${previewPost.slug}/`,
+      image: previewPost.heroImage,
+    }),
+    extraStyles: '/css/v1-blog-post.css',
+    post: previewPost,
+    content: renderMarkdown(previewPost.body),
   });
 }));
 
@@ -117,7 +151,16 @@ router.post('/:id/publish', asyncRoute(async (req, res, next) => {
   post.reviewedBy = req.user._id;
   await post.save();
 
-  res.set('HX-Redirect', `/blog/${post.slug}`);
+  if (!req.headers['hx-request']) return res.redirect('/admin/blog?published=1');
+
+  res.set(
+    'HX-Location',
+    JSON.stringify({
+      path: '/admin/blog?published=1',
+      target: '#admin-blog-page',
+      swap: 'outerHTML',
+    })
+  );
   return res.send('');
 }));
 

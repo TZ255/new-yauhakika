@@ -18,11 +18,13 @@ Guidelines:
 
 export function buildRewriteUserPrompt(article) {
   return `
-Rewrite the article into an original Swahili Markdown news post for Mikeka ya Uhakika.
+Rewrite the article into an original Swahili Markdown news post.
 
 Output requirements:
 - Write a clear title, SEO description, tags, badge, and Markdown body.
 - The Markdown body should be 500-900 words when the source has enough detail.
+- Do not include a Markdown H1 heading; the site renders the title as the page H1, so start body section headings at H2 using ##.
+- Format any direct quotes or blockquotes as Markdown blockquotes using >.
 - Do not include HTML anywhere in the Markdown body.
 - Put any uncertainty or source-quality issue in qualityWarnings.
 

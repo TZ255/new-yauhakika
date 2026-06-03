@@ -68,11 +68,17 @@
         <span id="draft-save-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
         Save Draft
       </button>
+      <a class="btn btn-outline-secondary"
+        href="/admin/blog/draft/<%= selectedPost.slug %>"
+        target="_blank"
+        rel="noopener">
+        Preview
+      </a>
       <button class="btn btn-success"
         type="submit"
         hx-post="/admin/blog/<%= selectedPost._id %>/publish"
-        hx-target="#draft-editor"
-        hx-swap="innerHTML"
+        hx-target="#admin-blog-page"
+        hx-swap="outerHTML"
         hx-indicator="#draft-publish-spinner">
         <span id="draft-publish-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
         Publish
