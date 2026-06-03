@@ -24,7 +24,6 @@ Output requirements:
 - Write a clear title, SEO description, tags, badge, and Markdown body.
 - The Markdown body should be 500-900 words when the source has enough detail.
 - Do not include HTML anywhere in the Markdown body.
-- Use ">" for blockquotes.
 - Put any uncertainty or source-quality issue in qualityWarnings.
 
 Source title: ${article.title}
