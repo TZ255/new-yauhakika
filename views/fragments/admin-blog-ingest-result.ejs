@@ -1,18 +1,31 @@
-<% if (result?.disabled) { %>
+<% if (error) { %>
+  <div class="alert alert-danger mb-3">
+    <div class="fw-semibold">Ingestion failed.</div>
+    <div><%= error.message %></div>
+  </div>
+<% } else if (result?.disabled) { %>
   <div class="alert alert-warning">Ingestion is disabled.</div>
 <% } else { %>
-  <div class="alert alert-info mb-3">
-    Ingestion finished. Processed <%= result?.count || 0 %> article(s).
+  <div class="alert alert-<%= result?.results?.some((item) => item.status === 'failed') ? 'warning' : 'success' %> mb-3">
+    <div class="fw-semibold">Ingestion finished.</div>
+    <div>Processed <%= result?.count || 0 %> article(s). New successful drafts appear in the draft list.</div>
   </div>
   <% if (result?.results?.length) { %>
     <ul class="list-group mb-3">
       <% result.results.forEach((item) => { %>
-        <li class="list-group-item d-flex justify-content-between gap-3">
-          <span class="text-break"><%= item.url || item.slug || item.reason || 'Article' %></span>
-          <span class="badge text-bg-<%= item.status === 'drafted' ? 'success' : item.status === 'failed' ? 'danger' : 'secondary' %>"><%= item.status %></span>
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between gap-3">
+            <span class="text-break"><%= item.url || item.slug || 'Article' %></span>
+            <span class="badge text-bg-<%= item.status === 'drafted' ? 'success' : item.status === 'failed' ? 'danger' : item.status === 'skipped' ? 'secondary' : 'info' %>"><%= item.status %></span>
+          </div>
+          <% if (item.reason) { %>
+            <div class="small text-muted mt-1"><%= item.reason %></div>
+          <% } %>
         </li>
       <% }) %>
     </ul>
+  <% } else { %>
+    <div class="alert alert-secondary mb-3">No new articles were available for draft creation.</div>
   <% } %>
 <% } %>
 

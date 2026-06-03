@@ -138,14 +138,27 @@ router.post('/:id/archive', asyncRoute(async (req, res, next) => {
 }));
 
 router.post('/ingest/run', asyncRoute(async (req, res) => {
-  const limit = Number(req.body.limit || 1);
+  const requestedLimit = Number.parseInt(req.body.limit || '1', 10);
+  const limit = Number.isInteger(requestedLimit) ? Math.min(Math.max(requestedLimit, 1), 5) : 1;
   const url = (req.body.url || '').trim();
-  const result = await runFootball365Ingestion({ limit, url: url || undefined, manual: true });
+  let result;
+  let error = null;
+
+  try {
+    result = await runFootball365Ingestion({ limit, url: url || undefined, manual: true });
+  } catch (err) {
+    console.error('[admin-blog:ingest-run]', err);
+    error = {
+      message: err.message || 'Ingestion failed unexpectedly.',
+    };
+  }
+
   const drafts = await loadDrafts();
 
   return res.render('fragments/admin-blog-ingest-result', {
     layout: false,
     result,
+    error,
     drafts,
   });
 }));
