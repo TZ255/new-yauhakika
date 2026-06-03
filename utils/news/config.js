@@ -8,7 +8,7 @@ export const FOOTBALL365_SOURCE_NAME = 'Football365';
 export const FOOTBALL365_ALL_NEWS_URL = 'https://www.football365.com/all-the-news';
 export const FOOTBALL365_ARTICLE_PATH_RE = /^\/news\/[^?#]+/;
 
-export const NEWS_MODEL = 'gpt-5.4';
+export const NEWS_MODEL = 'gpt-5.4-mini';
 export const NEWS_MAX_OUTPUT_TOKENS = 4000;
 
 export const INGEST_CRON_ENABLED = true;
