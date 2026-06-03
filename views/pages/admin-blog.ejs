@@ -1,0 +1,64 @@
+<div class="section-stack">
+  <section class="section-card">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title display-6 fw-bold mb-2">Blog Draft Review</h1>
+        <p class="section-subtitle mb-0">Review Football365 Swahili drafts, edit content, then publish.</p>
+      </div>
+      <a class="btn btn-outline-success" href="/blog/">View Blog</a>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <form class="row g-2 align-items-end"
+      hx-post="/admin/blog/ingest/run"
+      hx-target="#ingest-result"
+      hx-swap="innerHTML"
+      hx-indicator="#ingest-run-spinner">
+      <div class="col-12 col-lg-7">
+        <label class="form-label fw-semibold" for="ingest-url">Article URL</label>
+        <input class="form-control" id="ingest-url" name="url" type="url" placeholder="https://www.football365.com/news/..." />
+      </div>
+      <div class="col-5 col-lg-2">
+        <label class="form-label fw-semibold" for="ingest-limit">Limit</label>
+        <input class="form-control" id="ingest-limit" name="limit" type="number" min="1" max="5" value="1" />
+      </div>
+      <div class="col-7 col-lg-3 d-grid">
+        <button class="btn btn-success" type="submit">
+          <span id="ingest-run-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+          Run Ingestion
+        </button>
+      </div>
+    </form>
+    <div id="ingest-result" class="mt-3"></div>
+  </section>
+
+  <section class="row g-3">
+    <div class="col-12 col-lg-4">
+      <div class="section-card h-100">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 class="h5 fw-bold mb-0">Drafts</h2>
+          <button class="btn btn-sm btn-outline-secondary"
+            hx-get="/admin/blog/drafts"
+            hx-target="#draft-list"
+            hx-swap="innerHTML"
+            hx-indicator="#draft-refresh-spinner"
+            type="button">
+            <span id="draft-refresh-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+            Refresh
+          </button>
+        </div>
+        <div id="draft-list">
+          <%- include('../fragments/admin-blog-list', { drafts }) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div class="section-card h-100">
+        <div id="draft-editor">
+          <%- include('../fragments/admin-blog-editor', { selectedPost, notice }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

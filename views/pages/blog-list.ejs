@@ -21,7 +21,9 @@
           <div class="col">
             <a class="card blog-card h-100 text-decoration-none" href="/blog/<%= post.slug %>">
               <% if (post.heroImage) { %>
-                <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" />
+                <div class="blog-card__media">
+                  <img src="<%= post.heroImage %>" class="card-img-top" alt="<%= post.title %>" loading="lazy" />
+                </div>
               <% } %>
               <div class="card-body d-flex flex-column">
                 <div class="d-flex w-100 justify-content-between align-items-start mb-1">
@@ -47,15 +49,17 @@
       </div>
     <% } %>
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
       <% if (pagination.prev) { %>
-        <a class="btn btn-outline-secondary" href="<%= pagination.prev === 1 ? '/blog' : '/blog/page/' + pagination.prev %>">&larr; Makala za hivi karibuni</a>
+        <a class="btn btn-outline-secondary" href="<%= pagination.prev === 1 ? '/blog/' : '/blog/page/' + pagination.prev + '/' %>">&larr; Makala za hivi karibuni</a>
       <% } else { %>
         <span></span>
       <% } %>
 
+      <span class="text-muted small">Ukurasa <%= pagination.page %> / <%= pagination.totalPages %></span>
+
       <% if (pagination.next) { %>
-        <a class="btn btn-outline-secondary" href="/blog/page/<%= pagination.next %>">Makala za zamani &rarr;</a>
+        <a class="btn btn-outline-secondary" href="/blog/page/<%= pagination.next %>/">Makala za zamani &rarr;</a>
       <% } else { %>
         <span></span>
       <% } %>

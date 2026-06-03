@@ -1,0 +1,20 @@
+<% if (!drafts || drafts.length === 0) { %>
+  <div class="alert alert-info mb-0">No draft posts waiting for review.</div>
+<% } else { %>
+  <div class="list-group">
+    <% drafts.forEach((post) => { %>
+      <button class="list-group-item list-group-item-action text-start"
+        type="button"
+        hx-get="/admin/blog/<%= post._id %>/edit"
+        hx-target="#draft-editor"
+        hx-swap="innerHTML"
+        hx-indicator="#draft-item-spinner-<%= post._id %>">
+        <span class="d-block fw-semibold"><%= post.title %></span>
+        <span class="d-block small text-muted">
+          <span id="draft-item-spinner-<%= post._id %>" class="spinner-border spinner-border-sm htmx-indicator me-1" aria-hidden="true"></span>
+          <%= post.sourceName || 'Manual' %> · <%= new Date(post.createdAt).toLocaleString('sv-SE') %>
+        </span>
+      </button>
+    <% }) %>
+  </div>
+<% } %>

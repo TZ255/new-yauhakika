@@ -6,10 +6,16 @@ const router = Router();
 const PAGE_SIZE = 10;
 
 async function listBlog(req, res) {
-  const page = Number(req.params.page || req.query.page || 1);
+  const pageParam = req.params.page || req.query.page || '1';
+  const page = Number.parseInt(pageParam, 10);
+  if (!Number.isInteger(page) || page < 1) return res.redirect('/blog/');
+
   const posts = await loadPosts();
   const total = posts.length;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (page > totalPages) {
+    return res.redirect(totalPages === 1 ? '/blog/' : `/blog/page/${totalPages}/`);
+  }
 
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
@@ -27,13 +33,14 @@ async function listBlog(req, res) {
       page,
       totalPages,
       prev: page > 1 ? page - 1 : null,
-    next: page < totalPages ? page + 1 : null,
-  },
+      next: page < totalPages ? page + 1 : null,
+    },
   });
 }
 
 router.get('/', listBlog);
 router.get('/page/:page', listBlog);
+router.get('/page/:page/', listBlog);
 
 router.get('/:slug', async (req, res, next) => {
   const { slug } = req.params;
@@ -50,7 +57,7 @@ router.get('/:slug', async (req, res, next) => {
       path: `/blog/${slug}/`,
       image: post.heroImage,
     }),
-    extraStyles: '/css/blog-post.css',
+    extraStyles: '/css/v1-blog-post.css',
     post,
     content: html,
   });

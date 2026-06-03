@@ -1,16 +1,27 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 import { slugify } from './slugify.js';
+import BlogPost from '../models/blogPost.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const BLOG_DIR = path.join(__dirname, '../content/blog');
 
 export async function loadPosts() {
-  const entries = await fs.readdir(BLOG_DIR);
+  const [filePosts, dbPosts] = await Promise.all([loadFilePosts(), loadPublishedDbPosts()]);
+
+  return [...dbPosts, ...filePosts].sort((a, b) => b.pubDate - a.pubDate);
+}
+
+async function loadFilePosts() {
+  const entries = await fs.readdir(BLOG_DIR).catch((err) => {
+    if (err.code === 'ENOENT') return [];
+    throw err;
+  });
   const posts = [];
 
   for (const file of entries) {
@@ -35,15 +46,76 @@ export async function loadPosts() {
       badge: data.badge,
       tags: data.tags || [],
       body: content,
+      status: 'published',
+      sourceType: 'filesystem',
     });
   }
 
-  return posts.sort((a, b) => b.pubDate - a.pubDate);
+  return posts;
+}
+
+async function loadPublishedDbPosts() {
+  if (mongoose.connection.readyState !== 1) return [];
+
+  const posts = await BlogPost.find({ status: 'published' })
+    .sort({ pubDate: -1, createdAt: -1 })
+    .lean()
+    .catch((err) => {
+      console.error('[blog] Failed to load database posts:', err.message);
+      return [];
+    });
+
+  return posts.map((post) => ({
+    id: post._id.toString(),
+    title: post.title,
+    slug: post.slug,
+    description: post.description || '',
+    pubDate: post.pubDate || post.publishedAt || post.createdAt || new Date(),
+    updatedDate: post.updatedDate || post.updatedAt,
+    heroImage: post.heroImage || '',
+    badge: post.badge,
+    tags: post.tags || [],
+    body: post.body || '',
+    status: post.status,
+    sourceType: post.sourceType,
+    sourceName: post.sourceName,
+    sourceUrl: post.sourceUrl,
+  }));
 }
 
 export async function getPostBySlug(slug) {
-  const posts = await loadPosts();
-  return posts.find((post) => post.slug === slug);
+  if (mongoose.connection.readyState !== 1) {
+    const filePosts = await loadFilePosts();
+    return filePosts.find((post) => post.slug === slug);
+  }
+
+  const dbPost = await BlogPost.findOne({ slug, status: 'published' })
+    .lean()
+    .catch((err) => {
+      console.error('[blog] Failed to load database post:', err.message);
+      return null;
+    });
+  if (dbPost) {
+    return {
+      id: dbPost._id.toString(),
+      title: dbPost.title,
+      slug: dbPost.slug,
+      description: dbPost.description || '',
+      pubDate: dbPost.pubDate || dbPost.publishedAt || dbPost.createdAt || new Date(),
+      updatedDate: dbPost.updatedDate || dbPost.updatedAt,
+      heroImage: dbPost.heroImage || '',
+      badge: dbPost.badge,
+      tags: dbPost.tags || [],
+      body: dbPost.body || '',
+      status: dbPost.status,
+      sourceType: dbPost.sourceType,
+      sourceName: dbPost.sourceName,
+      sourceUrl: dbPost.sourceUrl,
+    };
+  }
+
+  const filePosts = await loadFilePosts();
+  return filePosts.find((post) => post.slug === slug);
 }
 
 export function renderMarkdown(md) {

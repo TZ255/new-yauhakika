@@ -1,0 +1,92 @@
+<% if (notice) { %>
+  <div class="alert alert-<%= notice.type %>"><%= notice.message %></div>
+<% } %>
+
+<% if (!selectedPost) { %>
+  <div class="alert alert-info mb-0">Select a draft to review.</div>
+<% } else { %>
+  <form hx-post="/admin/blog/<%= selectedPost._id %>/save"
+    hx-target="#draft-editor"
+    hx-swap="innerHTML"
+    hx-indicator="#draft-save-spinner">
+    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-start mb-3">
+      <div>
+        <h2 class="h5 fw-bold mb-1">Edit Draft</h2>
+        <% if (selectedPost.sourceUrl) { %>
+          <a class="small" href="<%= selectedPost.sourceUrl %>" target="_blank" rel="noopener">Source article</a>
+        <% } %>
+      </div>
+      <span class="badge text-bg-warning">Draft</span>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="title">Title</label>
+      <input class="form-control" id="title" name="title" value="<%= selectedPost.title || '' %>" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="2" required><%= selectedPost.description || '' %></textarea>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-12 col-md-7">
+        <label class="form-label fw-semibold" for="slug">Slug</label>
+        <input class="form-control" id="slug" name="slug" value="<%= selectedPost.slug || '' %>" required />
+      </div>
+      <div class="col-12 col-md-5">
+        <label class="form-label fw-semibold" for="badge">Badge</label>
+        <input class="form-control" id="badge" name="badge" value="<%= selectedPost.badge || 'NEWS' %>" />
+      </div>
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label fw-semibold" for="tags">Tags</label>
+      <input class="form-control" id="tags" name="tags" value="<%= (selectedPost.tags || []).join(', ') %>" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="heroImage">Hero Image</label>
+      <input class="form-control" id="heroImage" name="heroImage" value="<%= selectedPost.heroImage || '' %>" />
+      <% if (selectedPost.heroImage) { %>
+        <img class="img-fluid rounded mt-2 border" src="<%= selectedPost.heroImage %>" alt="<%= selectedPost.title %>" />
+      <% } %>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="body">Markdown Body</label>
+      <textarea class="form-control font-monospace" id="body" name="body" rows="22" required><%= selectedPost.body || '' %></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="reviewNotes">Review Notes</label>
+      <textarea class="form-control" id="reviewNotes" name="reviewNotes" rows="2"><%= selectedPost.reviewNotes || '' %></textarea>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-outline-success" type="submit">
+        <span id="draft-save-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+        Save Draft
+      </button>
+      <button class="btn btn-success"
+        type="submit"
+        hx-post="/admin/blog/<%= selectedPost._id %>/publish"
+        hx-target="#draft-editor"
+        hx-swap="innerHTML"
+        hx-indicator="#draft-publish-spinner">
+        <span id="draft-publish-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+        Publish
+      </button>
+      <button class="btn btn-outline-danger"
+        type="button"
+        hx-post="/admin/blog/<%= selectedPost._id %>/archive"
+        hx-target="#draft-editor"
+        hx-swap="innerHTML"
+        hx-indicator="#draft-archive-spinner"
+        hx-confirm="Archive this draft?">
+        <span id="draft-archive-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+        Archive
+      </button>
+    </div>
+  </form>
+<% } %>

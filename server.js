@@ -15,6 +15,7 @@ import pageRoutes from './routes/pages.js';
 import blogRoutes from './routes/blog.js';
 import authRoutes from './routes/auth.js';
 import paymentRoutes from './routes/payment.js';
+import adminBlogRoutes from './routes/adminBlog.js';
 
 import seoRoutes from './routes/index.js';
 import { connectDB } from './config/db.js';
@@ -50,8 +51,8 @@ app.use(
 app.use(compression());
 
 // Parsers
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false, limit: '1mb' }));
+app.use(express.json({ limit: '1mb' }));
 
 // Sessions (7 days)
 const sessionStore = MongoStore.create({
@@ -95,6 +96,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', pageRoutes);
 app.use('/blog', blogRoutes);
+app.use('/admin/blog', adminBlogRoutes);
 app.use('/auth', authRoutes);
 app.use('/', paymentRoutes);
 app.use('/', seoRoutes);

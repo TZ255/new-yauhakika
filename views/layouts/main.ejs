@@ -50,7 +50,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/v1-main.css" />
 
   <!-- htmx -->
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
@@ -71,7 +71,7 @@
         <%- body %>
       </main>
       <%- include('../partials/footer') %>
-      <% if (!['vip', null].includes(activeId)) { %>
+      <% if (!['vip', null, 'admin-blog'].includes(activeId)) { %>
       <%- include('../partials/modals/vip-ad') %>
       <% } %>
     </div>

@@ -11,14 +11,33 @@ const router = Router();
 router.get('/', async (req, res) => {
   const tips = await getMegaTips();
   const treniTips = await getTreniTips();
-  const latestPosts = (await loadPosts()).slice(0, 3);
+  const allPosts = await loadPosts();
+  const latestPosts = allPosts.slice(0, 6);
   res.set('Cache-Control', 'public, max-age=600');
   res.render('pages/home', {
     activeId: 'home',
     meta: pageMeta({ title: 'Mikeka ya Uhakika | Pata Mikeka ya Bure Kila Siku', path: '/', image: '/social_img.webp' }),
     tips,
     latestPosts,
+    latestPostsNextOffset: latestPosts.length,
+    latestPostsHasMore: allPosts.length > latestPosts.length,
     treniTips,
+  });
+});
+
+router.get('/fragments/latest-posts', async (req, res) => {
+  const offset = Math.max(0, Number.parseInt(req.query.offset || '0', 10) || 0);
+  const limit = Math.min(12, Math.max(1, Number.parseInt(req.query.limit || '6', 10) || 6));
+  const allPosts = await loadPosts();
+  const posts = allPosts.slice(offset, offset + limit);
+  const nextOffset = offset + posts.length;
+
+  res.render('fragments/home-latest-posts', {
+    layout: false,
+    posts,
+    nextOffset,
+    hasMore: allPosts.length > nextOffset,
+    limit,
   });
 });
 

@@ -24,6 +24,17 @@
           </a>
         </li>
       <% }) %>
+      <% if (user?.role === 'admin') { %>
+        <li class="nav-item">
+          <a
+            class="nav-link sidebar-link d-flex align-items-center gap-2 <%= activeId === 'admin-blog' ? 'active' : '' %>"
+            href="/admin/blog/"
+          >
+            <span class="dot"></span>
+            <span>Admin Blog</span>
+          </a>
+        </li>
+      <% } %>
     </ul>
   </nav>
 </aside>

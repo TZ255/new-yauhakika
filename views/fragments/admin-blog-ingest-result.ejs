@@ -1,0 +1,21 @@
+<% if (result?.disabled) { %>
+  <div class="alert alert-warning">Ingestion is disabled.</div>
+<% } else { %>
+  <div class="alert alert-info mb-3">
+    Ingestion finished. Processed <%= result?.count || 0 %> article(s).
+  </div>
+  <% if (result?.results?.length) { %>
+    <ul class="list-group mb-3">
+      <% result.results.forEach((item) => { %>
+        <li class="list-group-item d-flex justify-content-between gap-3">
+          <span class="text-break"><%= item.url || item.slug || item.reason || 'Article' %></span>
+          <span class="badge text-bg-<%= item.status === 'drafted' ? 'success' : item.status === 'failed' ? 'danger' : 'secondary' %>"><%= item.status %></span>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+<% } %>
+
+<div id="draft-list" hx-swap-oob="innerHTML">
+  <%- include('admin-blog-list', { drafts }) %>
+</div>
