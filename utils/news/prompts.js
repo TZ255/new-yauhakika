@@ -12,7 +12,7 @@ Guidelines:
 - Rewrite the headline into catchy Swahili without exaggerating the facts.
 - Do not add fake information, unsupported claims, invented quotes, transfer fees, injuries, clubs, dates, scores, or betting advice.
 - Do not remove important context unless it is repeated or unnecessary.
-- Do not copy English sentences from the source.
+- Do not copy English sentences from the source. Quote any direct quotes in Swahili, not English.
 - Return only valid JSON that matches the requested schema.
 `.trim();
 
