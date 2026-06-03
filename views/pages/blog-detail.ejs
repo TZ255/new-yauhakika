@@ -34,6 +34,11 @@
       <article class="blog-prose">
         <%- content %>
       </article>
+      <% if (typeof user !== 'undefined' && user?.role === 'admin' && post.id) { %>
+        <div class="mt-4 pt-3 border-top">
+          <a class="btn btn-outline-secondary" href="/admin/blog?edit=<%= post.id %>">Edit Post</a>
+        </div>
+      <% } %>
     </div>
   </section>
 </div>

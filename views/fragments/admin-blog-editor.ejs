@@ -5,18 +5,22 @@
 <% if (!selectedPost) { %>
   <div class="alert alert-info mb-0">Select a draft to review.</div>
 <% } else { %>
+  <% const isPublished = selectedPost.status === 'published'; %>
+  <% const isDraft = selectedPost.status === 'draft'; %>
+  <% const statusClass = isPublished ? 'success' : isDraft ? 'warning' : 'secondary'; %>
+  <% const statusLabel = (selectedPost.status || 'draft').replace(/^\w/, (char) => char.toUpperCase()); %>
   <form hx-post="/admin/blog/<%= selectedPost._id %>/save"
     hx-target="#draft-editor"
     hx-swap="innerHTML"
     hx-indicator="#draft-save-spinner">
     <div class="d-flex flex-wrap gap-2 justify-content-between align-items-start mb-3">
       <div>
-        <h2 class="h5 fw-bold mb-1">Edit Draft</h2>
+        <h2 class="h5 fw-bold mb-1"><%= isPublished ? 'Edit Post' : 'Edit Draft' %></h2>
         <% if (selectedPost.sourceUrl) { %>
           <a class="small" href="<%= selectedPost.sourceUrl %>" target="_blank" rel="noopener">Source article</a>
         <% } %>
       </div>
-      <span class="badge text-bg-warning">Draft</span>
+      <span class="badge text-bg-<%= statusClass %>"><%= statusLabel %></span>
     </div>
 
     <div class="mb-3">
@@ -66,23 +70,25 @@
     <div class="d-flex flex-wrap gap-2">
       <button class="btn btn-outline-success" type="submit">
         <span id="draft-save-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
-        Save Draft
+        <%= isPublished ? 'Save Post' : 'Save Draft' %>
       </button>
       <a class="btn btn-outline-secondary"
-        href="/admin/blog/draft/<%= selectedPost.slug %>"
+        href="<%= isPublished ? `/blog/${selectedPost.slug}` : `/admin/blog/draft/${selectedPost.slug}` %>"
         target="_blank"
         rel="noopener">
         Preview
       </a>
-      <button class="btn btn-success"
-        type="submit"
-        hx-post="/admin/blog/<%= selectedPost._id %>/publish"
-        hx-target="#admin-blog-page"
-        hx-swap="outerHTML"
-        hx-indicator="#draft-publish-spinner">
-        <span id="draft-publish-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
-        Publish
-      </button>
+      <% if (!isPublished) { %>
+        <button class="btn btn-success"
+          type="submit"
+          hx-post="/admin/blog/<%= selectedPost._id %>/publish"
+          hx-target="#admin-blog-page"
+          hx-swap="outerHTML"
+          hx-indicator="#draft-publish-spinner">
+          <span id="draft-publish-spinner" class="spinner-border spinner-border-sm htmx-indicator" aria-hidden="true"></span>
+          Publish
+        </button>
+      <% } %>
       <button class="btn btn-outline-danger"
         type="button"
         hx-post="/admin/blog/<%= selectedPost._id %>/archive"

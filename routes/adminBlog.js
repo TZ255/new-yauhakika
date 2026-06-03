@@ -39,7 +39,7 @@ async function loadDrafts() {
   return BlogPost.find({ status: 'draft' }).sort({ createdAt: -1 }).lean();
 }
 
-async function renderAdminBlogPage(res, { layout = undefined, notice = null } = {}) {
+async function renderAdminBlogPage(res, { layout = undefined, notice = null, selectedPost = undefined } = {}) {
   const drafts = await loadDrafts();
   const locals = {
     activeId: 'admin-blog',
@@ -49,7 +49,7 @@ async function renderAdminBlogPage(res, { layout = undefined, notice = null } = 
       path: '/admin/blog/',
     }),
     drafts,
-    selectedPost: drafts[0] || null,
+    selectedPost: selectedPost !== undefined ? selectedPost : drafts[0] || null,
     notice,
   };
   if (layout !== undefined) locals.layout = layout;
@@ -60,8 +60,11 @@ async function renderAdminBlogPage(res, { layout = undefined, notice = null } = 
 router.use(requireAdmin);
 
 router.get('/', asyncRoute(async (req, res) => {
+  const selectedPost = req.query.edit ? await BlogPost.findById(req.query.edit).lean().catch(() => null) : undefined;
+
   return renderAdminBlogPage(res, {
     layout: req.headers['hx-request'] ? false : undefined,
+    selectedPost,
     notice: req.query.published ? { type: 'success', message: 'Post published.' } : null,
   });
 }));
@@ -127,7 +130,7 @@ router.post('/:id/save', asyncRoute(async (req, res, next) => {
   return res.render('fragments/admin-blog-editor', {
     layout: false,
     selectedPost: post.toObject(),
-    notice: { type: 'success', message: 'Draft saved.' },
+    notice: { type: 'success', message: post.status === 'published' ? 'Post saved.' : 'Draft saved.' },
   });
 }));
 
