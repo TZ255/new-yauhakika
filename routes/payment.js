@@ -123,6 +123,12 @@ router.post('/api/payment-webhook', async (req, res) => {
 
 router.post('/webhook/snippe', async (req, res) => {
   console.log('SNIPPE WEBHOOK received:', req.body);
+
+  const secret = req.headers['x-webhook-secret'];
+  if (secret !== process.env.PASS_USER) {
+    return res.status(400).json({ success: false, message: 'Invalid request' });
+  }
+
   res.status(200).json({ success: true, message: 'Webhook received' });
 
   try {

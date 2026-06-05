@@ -21,6 +21,7 @@ async function initializeSnippeGatewayPayment({ user, email, phone, orderRef }) 
     webhook_url: SNIPPE_WEBHOOK_URL,
     metadata: {
       order_id: orderRef,
+      plan: 'weekly',
     },
   };
 

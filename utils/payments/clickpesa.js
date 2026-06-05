@@ -7,10 +7,12 @@ async function initializeClickPesaPayment({ user, email, phone, orderRef }) {
   const payload = {
     SECRET: process.env.PASS_USER,
     orderRef,
+    plan: 'weekly',
     user: {
       userId: user._id,
       email: user.email,
       name: user.name || user.email.split('@')[0],
+      role: user.role,
     },
     phoneNumber: phone,
     amount: (email === 'janjatzblog@gmail.com' || user.role === 'admin') ? 1000 : PRICE.weekly,
