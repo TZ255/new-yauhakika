@@ -29,13 +29,13 @@ function uploadBuffer(buffer, options) {
   });
 }
 
-export async function processAndUploadImage({ imageUrl, slug }) {
+export async function processAndUploadImage({ imageUrl, slug, referer }) {
   if (!imageUrl) return { secureUrl: '', publicId: '' };
   if (!process.env.CLOUDINARY_URL && (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET)) {
     throw new Error('Cloudinary credentials are required for image upload');
   }
 
-  const { buffer, contentType } = await fetchBuffer(imageUrl);
+  const { buffer, contentType } = await fetchBuffer(imageUrl, { referer });
   if (!contentType.startsWith('image/') || contentType.includes('svg')) {
     throw new Error(`Unsupported image content type: ${contentType || 'unknown'}`);
   }

@@ -1,7 +1,6 @@
 export const NEWS_FETCH_TIMEOUT_MS = 15000;
 export const NEWS_IMAGE_MAX_BYTES = 8 * 1024 * 1024;
-export const NEWS_BROWSER_USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+export const NEWS_BROWSER_USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:151.0) Gecko/20100101 Firefox/151.0';
 
 export const FOOTBALL365_SOURCE_ID = 'football365';
 export const FOOTBALL365_SOURCE_NAME = 'Football365';

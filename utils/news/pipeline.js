@@ -111,7 +111,7 @@ export async function processFootball365Article(url) {
     await record.save();
 
     const imageSlug = await uniqueSlug(generated.slug || generated.title);
-    const image = await processAndUploadImage({ imageUrl: article.imageUrl, slug: imageSlug });
+    const image = await processAndUploadImage({ imageUrl: article.imageUrl, slug: imageSlug, referer: article.canonicalUrl });
     record.status = 'image_uploaded';
     record.cloudinaryPublicId = image.publicId;
     await record.save();

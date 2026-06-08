@@ -110,7 +110,7 @@ function extractArticleBody($) {
 }
 
 export async function extractFootball365Article(url) {
-  const html = await fetchHtml(url);
+  const html = await fetchHtml(url, { referer: FOOTBALL365_ALL_NEWS_URL });
   const $ = cheerio.load(html);
   removeNoise($);
 
