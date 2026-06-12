@@ -15,7 +15,7 @@ export const NEWS_MAX_OUTPUT_TOKENS = 8000;
 export const NEWS_GEMINI_MAX_OUTPUT_TOKENS = 12000;
 
 export const INGEST_CRON_ENABLED = true;
-export const INGEST_CRON_SCHEDULE = '6 * * * *'; // every hour at minute 6
+export const INGEST_CRON_SCHEDULE = '6 * * * *'; // every hour at a minute 6
 export const INGEST_CRON_TIMEZONE = 'Africa/Dar_es_Salaam';
 export const INGEST_BATCH_SIZE = 2;
 export const INGEST_DISCOVERY_SCAN_LIMIT = 10;
