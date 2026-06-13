@@ -47,7 +47,7 @@ function normalizeName(name) {
 }
 
 function generateOrderId() {
-  return `UHAKIKA${Date.now().toString(36)}`;
+  return `UHAKIKA${Date.now().toString(36)}`.toUpperCase();
 }
 
 function getNetworkBrand(phone) {
